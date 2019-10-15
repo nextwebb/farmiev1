@@ -1,27 +1,40 @@
 {
   "name": "famie-farm-services-and-organic-food-store-template",
   "version": "1.0.0",
-  "description": "Famie - Farm Services &amp; Organic Food Store Template",
+  "description": "AHAI - Farm Services &amp; Organic Food Store",
   "main": "index.js",
   "scripts": {
+    "watch": "nodemon app",
     "start": "gulp",
     "build": "webpack"
   },
-  "author": "http://colorlib.com",
+  "author": "https://nextwebb.com.ng",
   "license": "CC-BY-3.0",
   "devDependencies": {
     "gulp": "^3.9.1"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
+    "ejs": "^2.7.1",
     "elegant-icons": "0.0.1",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jarallax": "^1.10.6",
     "jquery": "^2.2.4",
     "jquery-sticky": "^1.0.4",
     "magnific-popup": "^1.1.0",
+    "nodemon": "^1.19.3",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.14.5",
+    "validator": "^11.1.0",
     "wowjs": "^1.1.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nextwebb/farmiev1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nextwebb/farmiev1/issues"
+  },
+  "homepage": "https://github.com/nextwebb/farmiev1#readme"
 }
