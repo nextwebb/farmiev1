@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 4000
 
 const router = require('./router');//it expects a file router.js
 
@@ -18,10 +19,11 @@ app.use(express.static('public/utilities'));
 app.use(express.static('public/fonts')); 
 app.use(express.static('public/js')); 
 
-app.set('views', './views');
+app.set('views', './views/partials');
+app.set('views', './views/pages');
 app.set('view engine', 'ejs');
 
 app.use('/', router); 
 
 
-app.listen(3000);
+app.listen(port);

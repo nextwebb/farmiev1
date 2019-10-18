@@ -29,3 +29,23 @@ exports.contact = function(req, res) {
     //calls the appropriate view template
     res.render('contact');
 }
+// exports.purchase = function(req, res) {
+//     //calls the appropriate view template
+//     res.render('purchase');
+// }
+// exports.delivery = function(req, res) {
+//     //calls the appropriate view template
+//     res.render('delivery');
+// }
+// exports.return = function(req, res) {
+//     //calls the appropriate view template
+//     res.render('return');
+// }
+// exports.faqs = function(req, res) {
+//     //calls the appropriate view template
+//     res.render('faqs');
+// }
+// exports.payments = function(req, res) {
+//     //calls the appropriate view template
+//     res.render('payments');
+// }
