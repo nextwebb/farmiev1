@@ -1,0 +1,127 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- Title -->
+  <title>AHAI - Farm Services &amp; Organic Food Store | Home</title>
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div class="preloader d-flex align-items-center justify-content-center">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ##### Header Area Start ##### -->
+  <header class="header-area">
+    <!-- Top Header Area -->
+   <!-- views/partials/header.ejs -->
+<!-- Top Header Area -->
+<div class="top-header-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="top-header-content d-flex align-items-center justify-content-between">
+          <!-- Top Header Content -->
+          <div class="top-header-meta">
+            <p>Welcome to <span>AHAI Farms</span>, we hope you will enjoy our products and have good experience</p>
+          </div>
+          <!-- Top Header Content -->
+          <div class="top-header-meta text-right">
+            <a href="mailto:contact@AHAIFARMS.COM" data-toggle="tooltip" data-placement="bottom" title="contact@AHAIFARMS.COM"><i class="fa fa-envelope-o" aria-hidden="true"></i> <span>Email: contact@AHAIFARMS.COM</span></a>
+            <a href="tel:+2348037122949" data-toggle="tooltip" data-placement="bottom" title="+1 234 122 122"><i class="fa fa-phone" aria-hidden="true"></i> <span>Call Us: +2348037122949</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar Area -->
+<div class="famie-main-menu">
+  <div class="classy-nav-container breakpoint-off">
+    <div class="container">
+      <!-- Menu -->
+      <nav class="classy-navbar justify-content-between" id="famieNav">
+        <!-- Nav Brand -->
+        <a href="/" class="nav-brand"><img src="img/core-img/logo.png" alt="AHAIFARMS NIGERIA" title="AHAIFARMS NIGERIA" width="121px" height="24px"></a>
+        <!-- Navbar Toggler -->
+        <div class="classy-navbar-toggler">
+          <span class="navbarToggler"><span></span><span></span><span></span></span>
+        </div>
+        <!-- Menu -->
+        <div class="classy-menu">
+          <!-- Close Button -->
+          <div class="classycloseIcon">
+            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+          </div>
+          <!-- Navbar Start -->
+          <div class="classynav">
+            <ul>
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/products">Our Product</a></li>
+              <li><a href="/farming-practice">Services</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+            <!-- <a href="/login" class="btn famie-btn mt-30 mb-2 ">Login</a> -->
+            <button type="button" class="btn famie-btn mt-30 mb-2" data-toggle="modal" data-target="#loginModal">
+              Login
+            </button>
+            
+            
+          </div>
+          <!-- Navbar End -->
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+  </header>
+  
+ 
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">AHAIFARMS ADMIN LOGIN</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/login">
+          <div class="form-group">
+            <label for="Email1">Email address</label>
+            <input type="email" name="email" class="form-control loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control loginPassword" id="loginPassword" placeholder="Enter Password">
+          </div>
+
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+         
+          <button type="submit" class="btn famie-btn mt-30 mb-2 float-right">Submit</button>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
