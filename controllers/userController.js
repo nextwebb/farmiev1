@@ -23,14 +23,36 @@ exports.contact = function(req, res) {
     res.render('contact')
 }
 exports.login = function(req, res) {
-    // call the appropriate view template
-   // res.send('Login Successful!')
-   res.render('admin_index')
+    let user = new User(req.body)
+    // console.log(user.data)
+    user.login().then((result)=>{
+        req.session.user = {username: user.data.username, _id: user.data._id}
+        req.session.save(function() {
+            console.log(result)
+            res.render('admin_index')
+           
+        })
+
+    }).catch((e)=>{
+        console.log(e)
+        req.flash('errors', e)
+        req.session.save(function() {
+            res.redirect('/')
+          })
+    })  
+   
 }
 
 exports.mustBeLoggedIn = function(req, res, next) {
     // check if this user has session data
-    next()
+    if (req.session.user) {
+        next()
+      } else {
+       req.flash("errors", "You must be logged in to perform that action.")
+        req.session.save(function() {
+          res.redirect('/')
+        })
+      }
 }
 
 exports.openRegAdminForm = function( req, res){
@@ -44,14 +66,28 @@ exports.registerAdmin = function(req, res) {
   // console.log(user.data)
 
    user.register().then((data)=>{
-    console.log(data)
+    req.session.user = {username: user.data.username,_id: user.data._id}
+    req.session.save(function() {
+        res.redirect('/')
+    })
    }).catch((errors)=>{
-    console.log(errors)
+    errors.forEach(function(error) {
+        req.flash('regErrors', error)
+        console.log(error)
+      })
+      req.session.save(function() {
+        res.redirect('/')
+      })
    })
 
 }
 
-
+exports.logOut = function(req, res) {
+    req.session.destroy(function() {
+        res.redirect('/')
+        console.log("Logout Successful!")
+      })
+}
 
 
 

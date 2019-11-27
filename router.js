@@ -8,9 +8,10 @@ router.get("/about", userController.about)
 router.get("/products", userController.products)
 router.get("/farming-practice", userController.farmingPractice)
 router.get("/contact", userController.contact)
-router.post("/login", userController.login)
-router.get("/admin/openRegAdminForm",userController.mustBeLoggedIn,  userController.openRegAdminForm),
-router.post("/admin/register",userController.mustBeLoggedIn,  userController.registerAdmin),
+router.get("/admin/openRegAdminForm",userController.mustBeLoggedIn,  userController.openRegAdminForm)
+router.post("/admin/register",userController.mustBeLoggedIn,  userController.registerAdmin)
+router.post("/admin/login", userController.login)
+router.get("/admin/logout",userController.mustBeLoggedIn, userController.logOut )
 
 // router.get("/purchase", userController.purchse);
 // router.get("/delivery", userController.delivery);

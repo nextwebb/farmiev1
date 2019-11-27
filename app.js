@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require('express-session')
+const flash = require('connect-flash')
 const MongoStore = require('connect-mongo')(session)
 const csrf = require('csurf')
 
@@ -22,6 +23,7 @@ let sessionOptions = session({
 
 app.use(sessionOptions)
 app.use(csrf())
+app.use(flash())
 app.use(function(req, res, next) {
     const token = req.csrfToken()
     res.locals.csrfToken = token
