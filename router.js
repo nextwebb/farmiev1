@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('./controllers/userController')
+const productController = require('./controllers/productController')
+
 
 
 router.get("/", userController.home)
@@ -12,6 +14,8 @@ router.get("/admin/openRegAdminForm",userController.mustBeLoggedIn,  userControl
 router.post("/admin/register",userController.mustBeLoggedIn,  userController.registerAdmin)
 router.post("/admin/login", userController.login)
 router.get("/admin/logout",userController.mustBeLoggedIn, userController.logOut )
+router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmin )
+router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
 
 // router.get("/purchase", userController.purchse);
 // router.get("/delivery", userController.delivery);

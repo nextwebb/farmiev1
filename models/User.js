@@ -6,6 +6,7 @@ const usersCollection = require("../db").db().collection("users")
 let User = function(data) {
    this.data = data;
    this.errors = [];
+   console.log(this.data)
     
 }
 User.prototype.cleanUp = function() {
@@ -21,10 +22,13 @@ User.prototype.cleanUp = function() {
     if(typeof(this.data.password) != "string") {
         this.data.password = ""
     }
-    
+    if(typeof(this.data.formtype) != "string") {
+        this.data.formtype = ""
+    }
 
     // get rid of any bogus properties
-    if( this.data.fname && this.data.lname && this.data.email && this.data.password) {
+    if( this.data.formtype != undefined && this.data.formtype == "adminReg") {
+        console.log("adminReg form")
         this.data = {
             fname: this.data.fname.trim().toLowerCase(),
             lname: this.data.lname.trim().toLowerCase(),
@@ -32,14 +36,18 @@ User.prototype.cleanUp = function() {
             username: this.data.fname.trim().toLowerCase() +""+ Math.floor(Math.random() * 101) ,
             password: this.data.password,
         }
-    } else {
+    } 
+    if( this.data.formtype != undefined && this.data.formtype == "adminLogin") {
+        console.log("adminLogin form")
         this.data = {
             username: this.data.fname.trim().toLowerCase() +""+ Math.floor(Math.random() * 101) ,
             password: this.data.password,
         }
+    }    
+
     }
-   
-}
+
+    
 
     User.prototype.validate = function() {
         return new Promise( async (resolve, reject)=>{
@@ -88,10 +96,7 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
     if (emailExists) {this.errors.push("That email is already being used.")}
   }
     resolve()
-        })
-            
-            
-               
+        })           
         }
        
         

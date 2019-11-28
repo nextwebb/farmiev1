@@ -24,12 +24,26 @@ let sessionOptions = session({
 app.use(sessionOptions)
 app.use(csrf())
 app.use(flash())
+
 app.use(function(req, res, next) {
+
     const token = req.csrfToken()
     res.locals.csrfToken = token
     res.cookie('csrf-token', token)
+
+    // make all error, regErrors, and success flash messages available from all templates
+
+    res.locals.errors = req.flash("errors")
+    res.locals.success = req.flash("success")
+    //res.locals.regErrors = req.flash("regErrors")
+
+    // make logged in user session data available from within view templates
+    res.locals.user = req.session.user
+
     next()
 })
+
+
 
 
 //we use the express feature to serve static files as images,css files and js files.

@@ -57,7 +57,10 @@ exports.mustBeLoggedIn = function(req, res, next) {
 
 exports.openRegAdminForm = function( req, res){
     // check if this user has session data
-    res.render("admin_register")
+    if( req.session.user) {
+        res.render("admin_register", {regErrors: req.flash('regErrors')})
+    } 
+    return
 }
 
 exports.registerAdmin = function(req, res) {
@@ -66,19 +69,30 @@ exports.registerAdmin = function(req, res) {
   // console.log(user.data)
 
    user.register().then((data)=>{
+    req.flash("success", "Successful registration!")
     req.session.user = {username: user.data.username,_id: user.data._id}
     req.session.save(function() {
-        res.redirect('/')
+        res.redirect('/admin')
     })
    }).catch((errors)=>{
     errors.forEach(function(error) {
         req.flash('regErrors', error)
-        console.log(error)
+        console.log("regErrors:", error)
       })
       req.session.save(function() {
-        res.redirect('/')
+          // only after it has saved session data 
+          //reloads the same page
+          // which is still the registration page
+       res.redirect('/admin/openRegAdminForm')
+
       })
    })
+
+}
+
+exports.redirectToAdmin = function(req, res){
+    // redirects to admin homepage
+    res.render('admin_index')
 
 }
 
