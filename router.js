@@ -16,7 +16,7 @@ router.post("/admin/login", userController.login)
 router.get("/admin/logout",userController.mustBeLoggedIn, userController.logOut )
 router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmin )
 router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
-router.post("admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct)
+router.post("/admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct) 
 
 // router.get("/purchase", userController.purchse);
 // router.get("/delivery", userController.delivery);

@@ -12,9 +12,9 @@ export default class CreateProduct {
     events() {
         //submit form
         this.createProduct.addEventListener("submit",(e)=>{ 
-            e.preventDefault()
-           //this.formSubmitHandler()
-           console.log(e)
+          //   e.preventDefault()
+          //  //this.formSubmitHandler()
+          //  console.log(e)
         })
 
        // Add the following code if you want the name of the file appear on select

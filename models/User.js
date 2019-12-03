@@ -6,7 +6,7 @@ const usersCollection = require("../db").db().collection("users")
 let User = function(data) {
    this.data = data;
    this.errors = [];
-   console.log(this.data)
+//    console.log(this.data)
     
 }
 User.prototype.cleanUp = function() {
