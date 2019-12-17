@@ -3,8 +3,6 @@ const router = express.Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
 
-
-
 router.get("/", userController.home)
 router.get("/about", userController.about)
 router.get("/products", userController.products)

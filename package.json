@@ -32,7 +32,6 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "font-awesome": "^4.7.0",
-    "formidable": "^1.2.1",
     "jarallax": "^1.10.6",
     "jquery": "^2.2.4",
     "jquery-sticky": "^1.0.4",

@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo')(session)
 const csrf = require('csurf')
 
 
+
 const router = require('./router');//it expects a file router.js
 
 //boiler plate code
@@ -22,10 +23,12 @@ let sessionOptions = session({
     }
 })
 
+
+
+  
 app.use(sessionOptions)
 app.use(csrf())
 app.use(flash())
-
 app.use(function(req, res, next) {
 
     const token = req.csrfToken()

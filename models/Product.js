@@ -4,20 +4,24 @@ const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
 
 
-let Product = function(data) {
+let Product = function(data, file) {
   this.data = data
   this.errors = []
+  if (file == undefined) {file = false}
+  if (file) {this.file = file}
+ 
 }
 
 Product.prototype.cleanUp = function() {
+
   if (typeof(this.data.name) != "string") {this.data.name = ""}
   if (typeof(this.data.catName) != "string") {this.data.catName = ""}
   if (typeof(this.data.quantity) != "string") {this.data.quantity = ""}
   if (typeof(this.data.rate) != "string") {this.data.rate = ""}
   if (typeof(this.data.discount) != "string") {this.data.discount = ""}
   if (typeof(this.data.location) != "string") {this.data.location = ""} 
-  if (typeof(this.data.filename) != "string") {this.data.filename = ""}
   if (typeof(this.data.desc) != "string") {this.data.desc = ""}
+  if (this.file && typeof(this.file.filename) != "string") {this.file.filename = ""}
 
   // get rid of any bogus properties
   this.data = {
@@ -28,20 +32,32 @@ Product.prototype.cleanUp = function() {
     rate: sanitizeHTML(this.data.rate.trim(), {allowedTags: [], allowedAttributes: {}}),
     discount: sanitizeHTML(this.data.discount.trim(), {allowedTags: [], allowedAttributes: {}}),
     location: sanitizeHTML(this.data.location.trim(), {allowedTags: [], allowedAttributes: {}}),
-    filename: sanitizeHTML(this.data.filename.trim(), {allowedTags: [], allowedAttributes: {}}),
     desc: sanitizeHTML(this.data.desc.trim(), {allowedTags: [], allowedAttributes: {}}),
+    image : Product.ifImageExists(this.file)
+  }
+  
+}
+  // A 'static method', it's just like a normal function 
+// it has no relation with any 'Product' object instance
+Product.ifImageExists = function(data) {
+  if(data){
+    return data.filename
+  } else{
+    return ""
   }
 }
 
 Product.prototype.validate = function() {
+
   if (this.data.name == "") {this.errors.push("You must provide the product name.")}
   if (this.data.catName == "") {this.errors.push("You must provide the Product category.")}
   if (this.data.rate == "") {this.errors.push("You must provide the product rate.")}
   if (this.data.discount == "") {this.errors.push("You must the provide discounted rate.")}
   if (this.data.quantity == "") {this.errors.push("You must provide the quantity of products available.")}
   if (this.data.location == "") {this.errors.push("You must provide the Product location.")}
-  if (this.data.filename == "") {this.errors.push("You must provide the product  image.")}
   if (this.data.desc == "") {this.errors.push("You must provide the Product description.")}
+  if (!this.file ) {this.errors.push("Error: No Product Image File Selected!.")}
+
 }
 
 Product.prototype.create = function() {
@@ -50,11 +66,14 @@ Product.prototype.create = function() {
     this.validate()
     if (!this.errors.length) {
       // save Product into database
+       console.log(this.data)
       ProductsCollection.insertOne(this.data).then((info) => {
         resolve(info.ops[0]._id)
       }).catch(() => {
+        console.log("THeres were some errors")
         this.errors.push("Please try again later.")
         reject(this.errors)
+        
       })
     } else {
       reject(this.errors)

@@ -213,7 +213,7 @@
               <%- include('./includes/flash') %>
             <div class="row">
               <div class="col-md-6">
-                  <form class="productForm d-none" method="POST" action="/admin/submit-product" > <!--d-none-->
+                  <form class="productForm d-none" method="POST" action="/admin/submit-product?_csrf=<%= csrfToken %>" enctype="multipart/form-data" > <!--d-none-->
                     <div class="form-row">
                       <div class="form-group col-md-12">
                         <label for="prouctName"><strong> Product Name</strong></label>
@@ -247,7 +247,7 @@
                     </div>
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="filename">
+                            <input type="file" class="custom-file-input" id="customFile" name="uploads">
                             <label class="custom-file-label" for="customFile">Choose image file</label>
                           </div>
                     </div>
@@ -255,7 +255,7 @@
                         <label for="desc"><strong> Product Description</strong> </label>
                         <textarea  name="desc" class="form-control desc" id="desc" rows="3"></textarea>
                       </div>
-                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                       <input type="hidden" name="uploads" value="products">
                     <button type="submit" class="btn btn-primary">Upload  <i class="fa fa-paper-plane" aria-hidden="true"></i> </button> 
                   </form>
               </div>
