@@ -72,7 +72,12 @@ exports.submitProduct = function(req, res) {
   });
       
 }
-   
+
+
+exports.viewAllProduct = function(req, res) {
+    // res.send("view all products")
+    res.render("view_products")
+}
    
        
   
