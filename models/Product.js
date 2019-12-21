@@ -8,7 +8,9 @@ let Product = function(data, file) {
   this.data = data
   this.errors = []
   if (file == undefined) {file = false}
-  if (file) {this.file = file}
+  if (file) {
+    this.file = file
+  }
  
 }
 
@@ -77,6 +79,27 @@ Product.prototype.create = function() {
       })
     } else {
       reject(this.errors)
+    }
+  })
+}
+
+Product.vewAllProducts = function() {
+  return new Promise(async (resolve, reject) =>{
+    try {
+      let products = await ProductsCollection.find({}).toArray()
+           // clean up each product array
+           products = products.map((product)=>{
+              product.location =undefined
+              product.image = undefined
+              
+            return product
+            
+           })
+
+        resolve(products)
+
+    } catch (error) {
+      reject("errors")
     }
   })
 }

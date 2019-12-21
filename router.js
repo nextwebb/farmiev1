@@ -16,6 +16,7 @@ router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmi
 router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
 router.post("/admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct) 
 router.get("/admin/view-all-product", userController.mustBeLoggedIn, productController.viewAllProduct);
+router.post("/admin/view-all-product", userController.mustBeLoggedIn, productController.viewAllProduct);
 
 // router.get("/purchase", userController.purchse);
 // router.get("/delivery", userController.delivery);

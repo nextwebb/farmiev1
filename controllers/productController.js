@@ -75,8 +75,12 @@ exports.submitProduct = function(req, res) {
 
 
 exports.viewAllProduct = function(req, res) {
-    // res.send("view all products")
-    res.render("view_products")
+    
+    Product.vewAllProducts().then((products)=>{
+      res.render("view_products", {products : products}) 
+    }).catch((err)=>{
+      console.log(err)
+    })
 }
    
        
