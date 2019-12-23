@@ -83,5 +83,7 @@ exports.viewAllProduct = function(req, res) {
     })
 }
    
-       
-  
+
+exports.updateSingleProduct = function(req, res){
+  res.render("view_single_product")
+}

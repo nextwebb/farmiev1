@@ -221,14 +221,17 @@
                   </tfoot>
                   <tbody>
                     <% products.forEach(function(product) { %>
-                    <tr>
-                      <td><%= product.name %></td>
-                      <td><%= product.quantity %></td>
-                      <td><%= product.catName %></td>
-                      <td><%= product.rate %></td>
-                      <td><%= product.discount %></td>
-                      <td><%= product.createdDate.getMonth() + 1 %>/<%= product.createdDate.getDate() %>/<%= product.createdDate.getFullYear() %></td>
-                    </tr>
+                   
+                      <tr>
+                      <span class="viewSingle">
+                        <td><a href="/admin/update-single-product/<%=product._id%>"><%= product.name %></a></td>
+                        <td><%= product.quantity %></td>
+                        <td><%= product.catName %></td>
+                        <td><%= product.rate %></td>
+                        <td><%= product.discount %></td>
+                        <td><%= product.createdDate.getMonth() + 1 %>/<%= product.createdDate.getDate() %>/<%= product.createdDate.getFullYear() %></td>
+                      </span>
+                      </tr>
                     <% }) %>
                     
                   </tbody>
@@ -245,8 +248,8 @@
 
       <%- include('includes/admin_footer') %>
       <!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/jquery.dataTables.min.js"></script>
+<script src="/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+<script src="/datatables-demo.js"></script>

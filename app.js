@@ -80,6 +80,7 @@ app.use(express.static('public/admin/vendor/chat.js'));
 app.use(express.static('public/admin/vendor/datatables'));
 app.use(express.static('public/admin/vendor/fontawesome'));
 app.use(express.static('public/admin/vendor/fontawesome/css'));
+app.use(express.static('public/admin/vendor/fontawesome-free/css'));
 app.use(express.static('public/admin/vendor/fontawesome/js'));
 app.use(express.static('public/admin/vendor/fontawesome/less'));
 app.use(express.static('public/admin/vendor/fontawesome/scss'));

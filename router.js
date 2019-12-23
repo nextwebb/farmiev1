@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
 
+// user related routes
 router.get("/", userController.home)
 router.get("/about", userController.about)
 router.get("/products", userController.products)
@@ -13,10 +14,14 @@ router.post("/admin/register",userController.mustBeLoggedIn,  userController.reg
 router.post("/admin/login", userController.login)
 router.get("/admin/logout",userController.mustBeLoggedIn, userController.logOut )
 router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmin )
+
+// products related routes
 router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
 router.post("/admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct) 
-router.get("/admin/view-all-product", userController.mustBeLoggedIn, productController.viewAllProduct);
-router.post("/admin/view-all-product", userController.mustBeLoggedIn, productController.viewAllProduct);
+router.get("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
+router.post("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
+router.get("/admin/update-single-product/:id", userController.mustBeLoggedIn, productController.updateSingleProduct);
+
 
 // router.get("/purchase", userController.purchse);
 // router.get("/delivery", userController.delivery);
