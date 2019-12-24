@@ -83,7 +83,7 @@ Product.prototype.create = function() {
   })
 }
 
-Product.vewAllProducts = function() {
+Product.veiwAllProducts = function() {
   return new Promise(async (resolve, reject) =>{
     try {
       let products = await ProductsCollection.find({}).toArray()
@@ -99,9 +99,26 @@ Product.vewAllProducts = function() {
         resolve(products)
 
     } catch (error) {
-      reject("errors")
+      reject(error)
     }
   })
+}
+
+Product.viewSingleProduct = function(productId) {
+ return new Promise( async(resolve, reject) => {
+   
+      if (typeof(productId) != "string" || !ObjectID.isValid(productId)) {
+        reject("errors in productId string")
+        return
+      }
+      try {
+        let product = await ProductsCollection.find({_id: new ObjectID(productId)}).toArray() 
+        resolve(product[0])
+      } catch (error) {
+        reject("errors")
+        
+      }
+ })
 }
 
 Product.prototype.update = function() {

@@ -190,15 +190,15 @@
     <!-- End of Topbar -->
 
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="singleProduct">
 
       <!-- Page Heading -->
-      <h1 class="h3 mb-4 text-gray-800"> Update Farm Product: < product name > </h1>
+      <h1 class="h3 mb-4 text-gray-800"> Update Farm Product: <%= product.name %> </h1>
 
       <!-- General settings-->
       <section class="settings">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
              
              <div class="card shadow mb-4">
               <div class="card-header py-3">
@@ -207,15 +207,15 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <p><strong>Name</strong> </p>
-                    <p><strong>Category</strong> </p>
-                    <p><strong> Updated</strong> </p>
+                    <p ><strong>Name:</strong> </p>
+                    <p ><strong>Category:</strong> </p>
+                    <p ><strong> Updated:</strong> </p>
   
                   </div>
                   <div class="col">
-                    <p><strong>Cassava</strong> </p>
-                    <p><strong>Cash Crops</strong> </p>
-                    <p><strong>21/09/19 </strong></p>
+                    <p id="showName" ><strong><%= product.name %></strong> </p>
+                    <p id="showCat"><strong><%= product.catName %></strong> </p>
+                    <p id="showCreatedDate"><strong><%= product.createdDate %> </strong></p>
   
                   </div>
                 </div>
@@ -227,6 +227,21 @@
 
 
           </div>
+          <div class="col-md-6">
+             
+            <div class="card shadow mb-4">
+             <div class="card-header py-3">
+               <h6 class="m-0 font-weight-bold text-primary">Appearance and Description</h6>
+             </div>
+             <div class="card-body">
+               <p id="showDesc"> 
+                <%= product.desc %>
+               </p>
+             </div>
+           </div>
+
+
+         </div>
 
         </div>
       </section>
@@ -248,7 +263,7 @@
                       <form>
                         <div class="form-group row">
                           <div class="col">
-                            <input type="text" class="form-control" id="staticEmail" value="Cassava">
+                            <input type="text" class="form-control" id="editName" value="<%= product.name %>">
                           </div>
                         </div>
                       </form>
@@ -271,7 +286,7 @@
                       <form>
                         <div class="form-group row">
                           <div class="col">
-                            <input type="text" class="form-control" id="staticEmail" value="2000">
+                            <input type="text" class="form-control" id="editRate" value="<%= product.rate %>">
                           </div>
                         </div>
                       </form>
@@ -294,7 +309,7 @@
                       <form>
                         <div class="form-group row">
                           <div class="col">
-                            <input type="text" class="form-control" id="staticEmail" value="1500">
+                            <input type="text" class="form-control" id="editDiscount" value="<%= product.discount %>">
                           </div>
                         </div>
                       </form>
@@ -317,7 +332,7 @@
                       <form>
                         <div class="form-group row">
                           <div class="col">
-                            <input type="text" class="form-control" id="staticEmail" value=1000>
+                            <input type="text" class="form-control" id="editQuantity" value=<%= product.quantity %>>
                           </div>
                         </div>
                       </form>
@@ -340,7 +355,7 @@
                     <form>
                       <div class="form-group row">
                         <div class="col">
-                          <input type="text" class="form-control" id="staticEmail" value=1000>
+                          <input type="text" class="form-control" id="editCatName" value=<%= product.catName %>>
                         </div>
                       </div>
                     </form>
@@ -363,7 +378,7 @@
                     <form>
                       <div class="form-group row">
                         <div class="col">
-                          <input type="text" class="form-control" id="staticEmail" value="Cash Crops">
+                          <input type="text" class="form-control" id="editLocation" value="<%= product.location %>">
                         </div>
                       </div>
                     </form>
@@ -394,12 +409,13 @@
                       <div class="form-group">
                       
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                          <%= product.desc %>
                         </textarea>
                       </div>
                     </form>
                   </div>
                 </div>
+                
     
           
               </div>
@@ -413,18 +429,20 @@
                   </div>
                   <div class="card-body">
                     <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
                     </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
+                    <div class="form-group">
+                      <!-- <label for="exampleFormControlFile1">Example file input</label> -->
+                      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
                   </div>
+                  
                 </div>
-                <div class="form-group">
-                  <!-- <label for="exampleFormControlFile1">Example file input</label> -->
-                  <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
+               
+                
       
               </div>
+              
              
   
 
@@ -442,7 +460,40 @@
          
         </div>
         
+        
       </section>
+
+      <section>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="float-left">
+              <h1 class="h3 mb-4 text-gray-800">
+
+                <button  type="button" class="btn btn-danger deleteProduct" data-toggle="modal" data-target="#deleteModal"> 
+                  <strong> Delete Product</strong>  <i class="fa fa-trash" aria-hidden="true" style="font-size:18px"></i>
+                </button>
+              
+              </h1>
+          </div>
+          </div>
+          
+        <div class="col-md-6">
+          <div class="float-right">
+            <h1 class="h3 mb-4 text-gray-800">
+              <form method="POST" action="/admin/view-products" >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="btn btn-primary allProduct">
+                <strong> All Product</strong> <i class="fa fa-angle-double-right" style="font-size:18px"></i>
+              </button>
+            </form>
+            </h1>
+        </div>
+        </div>
+        
+
+        </div>
+      </section>
+      
 
       
 
@@ -450,6 +501,37 @@
 
     </div>
     <!-- /.container-fluid -->
+    <!-- The Modal -->
+<div class="modal" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Product</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="POST" action="/admin/view-products" >
+          <p><strong>you sure you want to delete this product ??</strong> </p>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success  dontDelProduct" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger deleteProduct" >Yess, delete</button><% //onclick send axios post request %>
+        </div>
+      </form>
+      </div>
+
+      <!-- Modal footer -->
+     
+
+    </div>
+  </div>
+</div>
+
 
   </div>
   <!-- End of Main Content -->

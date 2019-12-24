@@ -5,6 +5,7 @@ export default class ViewProducts {
     constructor() {
         this.productsDataTable = document.querySelector("#dataTable")
        
+       
 
         // Get HTML head element 
         this.head = document.getElementsByTagName('HEAD')[0];

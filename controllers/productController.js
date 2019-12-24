@@ -76,14 +76,20 @@ exports.submitProduct = function(req, res) {
 
 exports.viewAllProduct = function(req, res) {
     
-    Product.vewAllProducts().then((products)=>{
+    Product.veiwAllProducts().then((products)=>{
       res.render("view_products", {products : products}) 
     }).catch((err)=>{
       console.log(err)
     })
 }
-   
-
+  
 exports.updateSingleProduct = function(req, res){
-  res.render("view_single_product")
+
+  Product.viewSingleProduct(req.params.id).then((product)=>{
+    res.render("view_single_product", {product: product})
+    
+  }).catch((err)=>{
+    console.log(err)
+    
+  })
 }

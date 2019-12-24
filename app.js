@@ -52,6 +52,7 @@ app.use(function(req, res, next) {
 
 //we use the express feature to serve static files as images,css files and js files.
 app.use(express.static('public')); 
+app.use(express.static('public/uploads')); 
 app.use(express.static('public/img/bg-img')); 
 app.use(express.static('public/img/core-img')); 
 app.use(express.static('public/css')); 
