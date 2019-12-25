@@ -4,7 +4,7 @@ const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
 
 
-let Product = function(data, file) {
+let Product = function(data, file, ) {
   this.data = data
   this.errors = []
   if (file == undefined) {file = false}
@@ -23,6 +23,7 @@ Product.prototype.cleanUp = function() {
   if (typeof(this.data.discount) != "string") {this.data.discount = ""}
   if (typeof(this.data.location) != "string") {this.data.location = ""} 
   if (typeof(this.data.desc) != "string") {this.data.desc = ""}
+  if(this.data.updated  && typeof(this.data.updated != "string")) {this.data.updated = ""}
   if (this.file && typeof(this.file.filename) != "string") {this.file.filename = ""}
 
   // get rid of any bogus properties
@@ -121,19 +122,12 @@ Product.viewSingleProduct = function(productId) {
  })
 }
 
-Product.prototype.update = function() {
+Product.prototype.updateImage = function() {
   return new Promise(async (resolve, reject) => {
     try {
-      let Product = await Product.findSingleById(this.requestedProductId, this.userid)
-      if (Product.isVisitorOwner) {
-        // actually update the db
-        let status = await this.actuallyUpdate()
-        resolve(status)
-      } else {
-        reject()
-      }
+      
     } catch(error) {
-      reject()
+      reject(err)
     }
   })
 }
@@ -141,12 +135,20 @@ Product.prototype.update = function() {
 Product.prototype.actuallyUpdate = function() {
   return new Promise(async (resolve, reject) => {
     this.cleanUp()
-    this.validate()
-    if (!this.errors.length) {
-      await ProductsCollection.findOneAndUpdate({_id: new ObjectID(this.requestedProductId)}, {$set: {title: this.data.title, body: this.data.body}})
+    try {
+      await ProductsCollection.findOneAndUpdate({_id: new ObjectID(this.data.productId)}, {$set: {
+         name: this.data.title,
+         catName: this.data.name,
+         quantity: this.data.quantity,
+         rate: this.data.rate,
+         discount:this.data.discount,
+         location:this.data.location,
+         desc: this.data.desc,
+         createdDate: this.data.updated
+        }})
       resolve("success")
-    } else {
-      resolve("failure")
+    } catch(err) {
+      reject("failure")
     }
   })
 }

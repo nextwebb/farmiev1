@@ -193,7 +193,8 @@
     <div class="container-fluid" id="singleProduct">
 
       <!-- Page Heading -->
-      <h1 class="h3 mb-4 text-gray-800"> Update Farm Product: <%= product.name %> </h1>
+      <h1 class="h3 mb-4 text-gray-800" >Update Farm Product: <span id="showTitle" ><strong><%= product.name %></strong></span>  </h1>
+     
 
       <!-- General settings-->
       <section class="settings">
@@ -215,7 +216,7 @@
                   <div class="col">
                     <p id="showName" ><strong><%= product.name %></strong> </p>
                     <p id="showCat"><strong><%= product.catName %></strong> </p>
-                    <p id="showCreatedDate"><strong><%= product.createdDate %> </strong></p>
+                    <p id="showCreatedDate"><strong><%= product.createdDate.getMonth() + 1 %>/<%= product.createdDate.getDate() %>/<%= product.createdDate.getFullYear() %> </strong></p>
   
                   </div>
                 </div>
@@ -248,10 +249,10 @@
 
       <!-- General settings-->
       <section class="">
-
+        <form id="mainEditForm">
         <!-- Content Row -->
         <div class="row">
-
+          
           <!-- Earnings (Monthly) Card Example -->
           <div class="col-md-3 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -260,13 +261,13 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Product Name</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      <form>
+                     
                         <div class="form-group row">
                           <div class="col">
                             <input type="text" class="form-control" id="editName" value="<%= product.name %>">
                           </div>
                         </div>
-                      </form>
+                      
 
                     </div>
                   </div>
@@ -283,13 +284,13 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Product Rate</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      <form>
+                      
                         <div class="form-group row">
                           <div class="col">
                             <input type="text" class="form-control" id="editRate" value="<%= product.rate %>">
                           </div>
                         </div>
-                      </form>
+                      
 
                     </div>
                   </div>
@@ -306,13 +307,13 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Discount Rate</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      <form>
+                     
                         <div class="form-group row">
                           <div class="col">
                             <input type="text" class="form-control" id="editDiscount" value="<%= product.discount %>">
                           </div>
                         </div>
-                      </form>
+                     
 
                     </div>
                   </div>
@@ -329,13 +330,13 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Product Inventory</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      <form>
+                     
                         <div class="form-group row">
                           <div class="col">
                             <input type="text" class="form-control" id="editQuantity" value=<%= product.quantity %>>
                           </div>
                         </div>
-                      </form>
+                      
 
                     </div>
                   </div>
@@ -352,13 +353,13 @@
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Product Category</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    <form>
+                   
                       <div class="form-group row">
                         <div class="col">
-                          <input type="text" class="form-control" id="editCatName" value=<%= product.catName %>>
+                          <input type="text" class="form-control" id="editCat" value=<%= product.catName %>>
                         </div>
                       </div>
-                    </form>
+                   
 
                   </div>
                 </div>
@@ -369,27 +370,31 @@
 
         <!-- Pending Requests Card Example -->
         <div class="col-md-3 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Product Location</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    <form>
+                   
                       <div class="form-group row">
                         <div class="col">
                           <input type="text" class="form-control" id="editLocation" value="<%= product.location %>">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <input type="hidden" name="productId" value="<%= product._id %>">
+                         
                         </div>
                       </div>
-                    </form>
+                  
 
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        
         </div>
-
+      </form>
       </section>
 
        <!-- General settings-->
@@ -405,14 +410,14 @@
                     <h6 class="m-0 font-weight-bold text-primary">Description</h6>
                   </div>
                   <div class="card-body">
-                    <form>
+                   
                       <div class="form-group">
                       
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">
+                        <textarea class="form-control" id="editDesc" rows="10">
                           <%= product.desc %>
                         </textarea>
                       </div>
-                    </form>
+                   
                   </div>
                 </div>
                 
@@ -429,12 +434,14 @@
                   </div>
                   <div class="card-body">
                     <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4"  id="editImage" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
                     </div>
-                    <div class="form-group">
-                      <!-- <label for="exampleFormControlFile1">Example file input</label> -->
-                      <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                    </div>
+                    
+                      <div class="form-group">
+                        <!-- <label for="exampleFormControlFile1">Example file input</label> -->
+                        <input type="file" class="form-control-file" id="uploadImage">
+                      </div>
+                  
                   </div>
                   
                 </div>

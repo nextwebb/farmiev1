@@ -21,9 +21,10 @@ router.post("/admin/submit-product",userController.mustBeLoggedIn, productContro
 router.get("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
 router.post("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
 router.get("/admin/update-single-product/:id", userController.mustBeLoggedIn, productController.updateSingleProduct);
+router.post("/admin/updateProduct/", userController.mustBeLoggedIn, productController.updateProduct);
 
 
-// router.get("/purchase", userController.purchse);
+// router.get("/purchase", userController.purchse); 
 // router.get("/delivery", userController.delivery);
 // router.get("/return", userController.return);
 // router.get("/partners", userController.partners);

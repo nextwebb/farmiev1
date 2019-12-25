@@ -93,3 +93,14 @@ exports.updateSingleProduct = function(req, res){
     
   })
 }
+
+exports.updateProduct = function(req, res){
+
+ let product = new Product(req.body)
+ product.actuallyUpdate().then((result)=>{
+   res.json(result)
+   console.log(result)
+ }).catch((err)=>{
+  res.json("Something went wrong!")
+ }) 
+}
