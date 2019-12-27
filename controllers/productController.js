@@ -84,7 +84,6 @@ exports.viewAllProduct = function(req, res) {
 }
   
 exports.updateSingleProduct = function(req, res){
-
   Product.viewSingleProduct(req.params.id).then((product)=>{
     res.render("view_single_product", {product: product})
     
@@ -95,12 +94,18 @@ exports.updateSingleProduct = function(req, res){
 }
 
 exports.updateProduct = function(req, res){
-
+  //console.log(req.body)
  let product = new Product(req.body)
  product.actuallyUpdate().then((result)=>{
-   res.json(result)
-   console.log(result)
+   if(result){
+    // console.log(result)
+    res.json(result)
+   }else{
+    console.log("No results")
+   }
+   
  }).catch((err)=>{
   res.json("Something went wrong!")
+  console.log(err)
  }) 
 }

@@ -4,10 +4,11 @@ const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
 
 
-let Product = function(data, file, ) {
+let Product = function(data, file) {
   this.data = data
+  this.imagepath = this.data.image
   this.errors = []
-  if (file == undefined) {file = false}
+  if (file == undefined) {file = false} //prevents errors
   if (file) {
     this.file = file
   }
@@ -36,17 +37,17 @@ Product.prototype.cleanUp = function() {
     discount: sanitizeHTML(this.data.discount.trim(), {allowedTags: [], allowedAttributes: {}}),
     location: sanitizeHTML(this.data.location.trim(), {allowedTags: [], allowedAttributes: {}}),
     desc: sanitizeHTML(this.data.desc.trim(), {allowedTags: [], allowedAttributes: {}}),
-    image : Product.ifImageExists(this.file)
+    image : this.ifImageExists(this.file)
   }
   
 }
   // A 'static method', it's just like a normal function 
 // it has no relation with any 'Product' object instance
-Product.ifImageExists = function(data) {
+Product.prototype.ifImageExists = function(data) {
   if(data){
     return data.filename
   } else{
-    return ""
+    return this.imagepath.slice(22);
   }
 }
 
@@ -115,6 +116,8 @@ Product.viewSingleProduct = function(productId) {
       try {
         let product = await ProductsCollection.find({_id: new ObjectID(productId)}).toArray() 
         resolve(product[0])
+       
+       
       } catch (error) {
         reject("errors")
         
@@ -133,25 +136,51 @@ Product.prototype.updateImage = function() {
 }
 
 Product.prototype.actuallyUpdate = function() {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (reject,resolve) => {
     this.cleanUp()
-    try {
-      await ProductsCollection.findOneAndUpdate({_id: new ObjectID(this.data.productId)}, {$set: {
-         name: this.data.title,
-         catName: this.data.name,
-         quantity: this.data.quantity,
-         rate: this.data.rate,
-         discount:this.data.discount,
-         location:this.data.location,
-         desc: this.data.desc,
-         createdDate: this.data.updated
-        }})
-      resolve("success")
-    } catch(err) {
-      reject("failure")
-    }
+  //  console.log(this.data)
+    
+      let query = { name: this.data.name};
+      let update = {$set: {
+        name: this.data.name,
+        catName: this.data.catName,
+        quantity: this.data.quantity,
+        rate: this.data.rate,
+        discount:this.data.discount,
+        location:this.data.location,
+        desc: this.data.desc,
+        createdDate: new Date(),
+        image: this.data.image
+          } };
+        await ProductsCollection.findOneAndUpdate(query, update, {
+        })
+        .then((obj) => { 
+
+          resolve(obj + "sucessfully updated!")
+          
+          }) 
+          
+          .catch((err) => { 
+          
+          console.log('Error: ' + err); 
+          reject("error while updating")
+          
+          }) 
+     
+      
+   
+    
   })
 }
+
+
+  
+   
+
+
+
+
+
 
 Product.reusableProductQuery = function(uniqueOperations, visitorId) {
   return new Promise(async function(resolve, reject) {

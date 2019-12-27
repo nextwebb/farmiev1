@@ -264,7 +264,7 @@
                      
                         <div class="form-group row">
                           <div class="col">
-                            <input type="text" class="form-control" id="editName" value="<%= product.name %>">
+                            <input type="text" disabled class="form-control text-muted" id="editName" value="<%= product.name %>">
                           </div>
                         </div>
                       
@@ -330,14 +330,11 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Product Inventory</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                     
                         <div class="form-group row">
                           <div class="col">
                             <input type="text" class="form-control" id="editQuantity" value=<%= product.quantity %>>
                           </div>
                         </div>
-                      
-
                     </div>
                   </div>
                 </div>
@@ -353,14 +350,11 @@
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Product Category</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                   
                       <div class="form-group row">
                         <div class="col">
-                          <input type="text" class="form-control" id="editCat" value=<%= product.catName %>>
+                          <input type="text" class="form-control" id="editCat" value="<%= product.catName %>" >
                         </div>
                       </div>
-                   
-
                   </div>
                 </div>
               </div>
@@ -376,17 +370,13 @@
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Product Location</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                   
                       <div class="form-group row">
                         <div class="col">
                           <input type="text" class="form-control" id="editLocation" value="<%= product.location %>">
                           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                           <input type="hidden" name="productId" value="<%= product._id %>">
-                         
                         </div>
                       </div>
-                  
-
                   </div>
                 </div>
               </div>

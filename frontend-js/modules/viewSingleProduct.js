@@ -22,7 +22,7 @@ export default class ViewSingleProduct {
         this.editLocation = document.querySelector("#editLocation")
         this.editDesc = document.querySelector("#editDesc")
         this.editLocation = document.querySelector("#editLocation")
-        this.editImage = document.querySelector("#editImage")
+        this.editImage = document.querySelector("#editImage").src
         this.uploadImage = document.querySelector("#uploadImage")
 
 
@@ -74,6 +74,7 @@ export default class ViewSingleProduct {
              catName: this.editCat.value,
              location: this.editLocation.value,
              desc: this.editDesc.value,
+             image: this.editImage,
              updated :  this.updated
 
          })
