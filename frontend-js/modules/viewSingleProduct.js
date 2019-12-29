@@ -11,9 +11,13 @@ export default class ViewSingleProduct {
         this.updated = new Date()
         this.productId = document.querySelector('[name="productId"]').value
 
+       
+       
+
         //forms input selector
         this.mainEditForm = document.querySelector("#mainEditForm")
-        this._csrf = document.querySelector('[name="_csrf"]').value
+        this._csrf = document.querySelector('[name="_csrf"]')
+        this.upload_csrf = document.querySelector('#uploadcsrf')
         this.editName = document.querySelector("#editName")
         this.editRate = document.querySelector("#editRate")
         this.editDiscount = document.querySelector("#editDiscount")
@@ -23,12 +27,8 @@ export default class ViewSingleProduct {
         this.editDesc = document.querySelector("#editDesc")
         this.editLocation = document.querySelector("#editLocation")
         this.editImage = document.querySelector("#editImage").src
-        this.uploadImage = document.querySelector("#uploadImage")
-
-
-
+        this.imagefile = document.querySelector('#fileUpload')
        
-
         this.events()
 
     }
@@ -44,6 +44,11 @@ export default class ViewSingleProduct {
         this.editLocation.addEventListener("focusout", () => this.onfocusHandler())
         this.editDesc.addEventListener("focusout", () => this.onfocusHandler())
         this.editLocation.addEventListener("focusout", () => this.onfocusHandler())
+        this.imagefile.addEventListener('change', event => {
+          this.handleImageUpload(event)
+        })
+         //To include the CSRF token in all your request just do that 
+       axios.defaults.headers.post['X-CSRF-Token'] = this._csrf.value
        
     
     
@@ -63,10 +68,34 @@ export default class ViewSingleProduct {
        
         
     }
+
+     handleImageUpload(event){
+      this.files = event.target.files
+      this.formData = new FormData()
+     
+      //upload image file
+      this.formData.append('myFile', this.files[0]) 
+      
+      console.log(this.formData)
+      axios.post('/admin/upload_file/', 
+        this.formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+          }
+           })
+      .then()
+      .then(data => {
+        console.log(data.path)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
+
     sendRequest() {
         axios.post('/admin/updateProduct/', {
             productId:  this.productId,
-            _csrf: this._csrf,
+            _csrf: this._csrf.value,
              name: this.editName.value, 
              rate: this.editRate.value,
              discount: this.editDiscount.value,

@@ -97,15 +97,36 @@ exports.updateProduct = function(req, res){
   //console.log(req.body)
  let product = new Product(req.body)
  product.actuallyUpdate().then((result)=>{
-   if(result){
-    // console.log(result)
-    res.json(result)
-   }else{
-    console.log("No results")
-   }
-   
+  console.log(result)
  }).catch((err)=>{
-  res.json("Something went wrong!")
   console.log(err)
  }) 
+}
+
+exports.updateImage = function(req, res) {
+  console.log("hello")
+  upload(req, res, (err) => {
+     
+    if(err){
+      req.flash("errors", "Product must be MAX 1MB and Image format only!")
+      req.session.save(() => res.redirect("/admin/create-product"))
+     
+    } else {
+     
+        //  let product = new Product(req.body, req.file)
+        //  product.create().then((data)=>{
+        //    console.log(data)
+        //      req.flash("success", "Successfully added Product to Inventry.")
+        //      req.session.save(() => res.redirect("/admin/create-product"))
+        //  }).
+        //  catch(function(errors) {
+        //    console.log(errors)
+        //   errors.forEach(error => req.flash("errors", error))
+        //   req.session.save(() => res.redirect("/admin/create-product"))
+        // })
+        console.log("hello")
+      
+    }
+  });
+ 
 }

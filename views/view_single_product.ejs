@@ -426,11 +426,12 @@
                     <div class="text-center">
                       <img class="img-fluid px-3 px-sm-4 mt-3 mb-4"  id="editImage" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
                     </div>
-                    
+                    <form>
                       <div class="form-group">
-                        <!-- <label for="exampleFormControlFile1">Example file input</label> -->
-                        <input type="file" class="form-control-file" id="uploadImage">
+                        <input type="hidden" id="uploadcsrf" name="_csrf" value="<%= csrfToken %>">
+                        <input type="file" class="form-control-file" id="fileUpload">
                       </div>
+                    </form>
                   
                   </div>
                   

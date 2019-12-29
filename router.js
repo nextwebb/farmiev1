@@ -22,6 +22,7 @@ router.get("/admin/view-products", userController.mustBeLoggedIn, productControl
 router.post("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
 router.get("/admin/update-single-product/:id", userController.mustBeLoggedIn, productController.updateSingleProduct);
 router.post("/admin/updateProduct/", userController.mustBeLoggedIn, productController.updateProduct);
+router.post("/admin/upload_file/", userController.mustBeLoggedIn, productController.updateImage)
 
 
 // router.get("/purchase", userController.purchse); 
