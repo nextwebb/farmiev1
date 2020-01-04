@@ -104,12 +104,13 @@ exports.updateProduct = function(req, res){
 }
 
 exports.updateImage = function(req, res) {
-  console.log("hello")
+ // console.log("hello")
   upload(req, res, (err) => {
      
     if(err){
       req.flash("errors", "Product must be MAX 1MB and Image format only!")
       req.session.save(() => res.redirect("/admin/create-product"))
+      console.log(err)
      
     } else {
      
@@ -124,9 +125,23 @@ exports.updateImage = function(req, res) {
         //   errors.forEach(error => req.flash("errors", error))
         //   req.session.save(() => res.redirect("/admin/create-product"))
         // })
-        console.log("hello")
+        console.log("Hello world")
+        
       
     }
   });
  
+}
+
+exports.deleteSingle = function(req, res) {
+  Product.deleteSingle(req.params.id).then((response)=>{
+    console.log(response)
+    req.flash("success", response)
+    req.session.save(() => res.redirect("/admin/view-products/"))
+
+  }).catch((err)=>{
+    console.log(err)
+    errors.forEach(error => req.flash("errors", error))
+    req.session.save(() => res.redirect("/admin/view-products/"))
+  })
 }

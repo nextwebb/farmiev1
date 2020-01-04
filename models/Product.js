@@ -173,6 +173,23 @@ Product.prototype.actuallyUpdate = function() {
   })
 }
 
+Product.deleteSingle = function(productId) {
+  return new Promise(async (resolve, reject)=>{
+    if (typeof(productId) != "string" || !ObjectID.isValid(productId)) {
+      reject("errors in productId string")
+      return
+    }
+    try {
+      let product = await ProductsCollection.deleteOne({_id: new ObjectID(productId)})
+      resolve("Successfully deleted this Product!")
+     
+    } catch (error) {
+      reject("Server errors")
+      
+  }
+})
+}
+
 
   
    
