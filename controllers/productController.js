@@ -1,14 +1,16 @@
 
 const Product = require('../models/Product')
-const multer = require('multer');
-const path = require('path');
-
+const Resize = require('../models/Resize');
+const multer = require('multer')
+const path = require('path')
+const sharp = require('sharp')
+const fs = require("fs")
 
 
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
-  destination:  'public/uploads/',
+ destination:  'public/uploads/',
   filename: function(req, file, cb){
     cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
@@ -46,7 +48,6 @@ exports.createProduct = function(req, res) {
 }
 
 exports.submitProduct = function(req, res) {
-
   upload(req, res, (err) => {
      
     if(err){
@@ -54,18 +55,39 @@ exports.submitProduct = function(req, res) {
       req.session.save(() => res.redirect("/admin/create-product"))
      
     } else {
+
+      ( function() {
+        const imagePath = path.join( './public/uploads')
+        console.log(imagePath)
+
+        const fileUpload = new Resize(imagePath)
+        const filename =  fileUpload.save(req.file.path)
+
+      //   let product = new Product(req.body, req.file)
+      //   product.create().then( async (data)=>{
+          
+      //     const filename = await fileUpload.save(req.file.path)
+      //     console.log(filename)
+      //       req.flash("success", "Successfully added Product to Inventry.")
+      //       req.session.save(() => res.redirect("/admin/create-product"))
+      //   }).
+      //   catch(function(errors) {
+      //     if(errors){
+      //      console.log(errors)
+      //      errors.forEach(error => req.flash("errors", error))
+      //      req.session.save(() => res.redirect("/admin/create-product"))
+      //     }
+         
+        
+      //  })
+
+
+
+       })() 
+
      
-         let product = new Product(req.body, req.file)
-         product.create().then((data)=>{
-           console.log(data)
-             req.flash("success", "Successfully added Product to Inventry.")
-             req.session.save(() => res.redirect("/admin/create-product"))
-         }).
-         catch(function(errors) {
-           console.log(errors)
-          errors.forEach(error => req.flash("errors", error))
-          req.session.save(() => res.redirect("/admin/create-product"))
-        })
+
+       
         
       
     }
@@ -125,7 +147,7 @@ exports.updateImage = function(req, res) {
         //   errors.forEach(error => req.flash("errors", error))
         //   req.session.save(() => res.redirect("/admin/create-product"))
         // })
-        console.log("Hello world")
+        console.log("Update image here")
         
       
     }

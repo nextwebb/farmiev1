@@ -2,6 +2,9 @@ const ProductsCollection = require('../db').db().collection("Products")
 const ObjectID = require('mongodb').ObjectID
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
+const sharp = require('sharp');
+const uuidv4 = require('uuid/v4');
+const path = require('path');
 
 
 let Product = function(data, file) {
@@ -65,12 +68,13 @@ Product.prototype.validate = function() {
 }
 
 Product.prototype.create = function() {
-  return new Promise((resolve, reject) => {
+  return new Promise( async(resolve, reject) => {
     this.cleanUp()
     this.validate()
     if (!this.errors.length) {
       // save Product into database
        console.log(this.data)
+       
       ProductsCollection.insertOne(this.data).then((info) => {
         resolve(info.ops[0]._id)
       }).catch(() => {
@@ -90,13 +94,13 @@ Product.veiwAllProducts = function() {
     try {
       let products = await ProductsCollection.find({}).toArray()
            // clean up each product array
-           products = products.map((product)=>{
-              product.location =undefined
-              product.image = undefined
+          //  products = products.map((product)=>{
+          //     product.location =undefined
+          //     product.image = undefined
               
-            return product
+          //   return product
             
-           })
+          //  })
 
         resolve(products)
 
@@ -189,6 +193,7 @@ Product.deleteSingle = function(productId) {
   }
 })
 }
+
 
 
   

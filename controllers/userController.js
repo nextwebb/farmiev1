@@ -1,10 +1,16 @@
 
 const User = require('../models/User');
+const Product = require('../models/Product');
 
 
 exports.home = function(req, res) {
     //calls the appropriate view template
-    res.render('home-guest');
+    Product.veiwAllProducts().then((products)=>{
+        res.render("home-guest", {products : products}) 
+        //console.log(products)
+      }).catch((err)=>{
+        console.log(err)
+      })
 }
 exports.about = function(req, res) {
     //calls the appropriate view template

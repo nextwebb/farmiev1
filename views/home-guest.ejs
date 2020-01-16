@@ -234,81 +234,17 @@
             <img src="img/core-img/decor2.png" alt="">
           </div>
         </div>
-      </div>
+      </div><% console.log(products) %>
 
       <div class="row">
-
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="100ms">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p1.jpg" alt="">
-              <!-- Product Tags -->
-              <span class="product-tags">Hot</span>
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Fresh Tomatoes</a>
-              <h6 class="price">$17.99</h6>
-            </div>
-          </div>
-        </div>
-
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="300ms">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p2.jpg" alt="">
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Sweet Corn</a>
-              <h6 class="price">$9.99</h6>
-            </div>
-          </div>
-        </div>
-
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="500ms">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p3.jpg" alt="">
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Mushroom</a>
-              <h6 class="price">$59.99</h6>
-            </div>
-          </div>
-        </div>
+<% products.forEach((product)=>{ %>
 
         <!-- Single Product Area -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="700ms">
             <!-- Product Thumbnail -->
             <div class="product-thumbnail">
-              <img src="img/bg-img/p4.jpg" alt="">
+              <img src="uploads/<%-product.image%>" alt="<%product.name%>" class="img-fluid" height="100%">
               <!-- Product Tags -->
               <span class="product-tags bg-danger">Sale</span>
               <!-- Product Meta Data -->
@@ -320,11 +256,12 @@
             </div>
             <!-- Product Description -->
             <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Pepper</a>
-              <h6 class="price"><span>$29.99</span> $19.99</h6>
+              <a href="#" class="product-title"><%=product.name%></a>
+              <h6 class="price"><span>&#8358;<%=product.rate%>></span>&#8358; <%=product.discount%></h6>
             </div>
           </div>
         </div>
+     <% }) %>
 
       </div>
 
