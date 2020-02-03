@@ -3,8 +3,7 @@ const ObjectID = require('mongodb').ObjectID
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
 const sharp = require('sharp');
-const uuidv4 = require('uuid/v4');
-const path = require('path');
+
 
 
 let Product = function(data, file) {

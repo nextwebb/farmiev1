@@ -1,6 +1,6 @@
 
-const User = require('../models/User');
-const Product = require('../models/Product');
+const User = require('../models/User')
+const Product = require('../models/Product')
 
 
 exports.home = function(req, res) {
@@ -14,15 +14,15 @@ exports.home = function(req, res) {
 }
 exports.about = function(req, res) {
     //calls the appropriate view template
-    res.render('about');
+    res.render('about')
 }
 exports.products = function(req, res) {
     //calls the appropriate view template
-    res.render('products');
+    res.render('products')
 }
 exports.farmingPractice = function(req, res) {
     //calls the appropriate view template
-    res.render('farming-practice');
+    res.render('farming-practice')
 }
 exports.contact = function(req, res) {
     //calls the appropriate view template

@@ -3,6 +3,8 @@ const router = express.Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
 
+
+
 // user related routes
 router.get("/", userController.home)
 router.get("/about", userController.about)

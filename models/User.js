@@ -1,11 +1,11 @@
-const validator = require("validator");
+const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const md5 = require('md5')
 const usersCollection = require("../db").db().collection("users")
 
 let User = function(data) {
-   this.data = data;
-   this.errors = [];
+   this.data = data
+   this.errors = []
 //    console.log(this.data)
     
 }
@@ -55,13 +55,13 @@ User.prototype.cleanUp = function() {
                 this.errors.push("You must provide a first name.")
             }
             if(this.data.fname != "" && !validator.isAlpha(this.data.fname)){
-                this.errors.push("first Name can only contain letters.");
+                this.errors.push("first Name can only contain letters.")
             }
             if(this.data.lname == ""){
                 this.errors.push("You must provide a last name.")
             }
             if(this.data.lname != "" && !validator.isAlpha(this.data.fname)){
-                this.errors.push("last Name can only contain letters.");
+                this.errors.push("last Name can only contain letters.")
             }
             if(!validator.isEmail(this.data.email)){
                 this.errors.push("You must provide a valid email address.")
@@ -135,4 +135,4 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
 
         })
     }
-module.exports = User;
+module.exports = User

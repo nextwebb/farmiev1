@@ -1,54 +1,15 @@
 
 const Product = require('../models/Product')
-const Resize = require('../models/Resize');
-const multer = require('multer')
+const Resize = require('../models/Resize')
 const path = require('path')
-const sharp = require('sharp')
-const fs = require("fs")
-
-
-
-// Set The Storage Engine
-const storage = multer.diskStorage({
- destination:  'public/uploads/',
-  filename: function(req, file, cb){
-    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
-});
-
-// Init Upload
-const upload = multer({
-  storage: storage,
-  limits:{fileSize: 1000000},
-  fileFilter: function(req, file, cb){
-    checkFileType(file, cb);
-  }
-}).single('uploads');
-
-// Check File Type
-function checkFileType(file, cb){
-  // Allowed ext
-  const filetypes = /jpeg|jpg|png|gif/;
-  // Check ext
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
-  const mimetype = filetypes.test(file.mimetype);
-
-  if(mimetype && extname){
-    return cb(null,true);
-  } else {
-    cb('Error: Images Only!');
-  }
-}
-
-
+const upload = require('../uploadMiddleware').single('uploads')
 
 exports.createProduct = function(req, res) {
     res.render("create_product")
 }
 
 exports.submitProduct = function(req, res) {
-  upload(req, res, (err) => {
+ upload(req, res, (err) => {
      
     if(err){
       req.flash("errors", "Product must be MAX 1MB and Image format only!")
@@ -56,12 +17,20 @@ exports.submitProduct = function(req, res) {
      
     } else {
 
-      ( function() {
-        const imagePath = path.join( './public/uploads')
-        console.log(imagePath)
-
-        const fileUpload = new Resize(imagePath)
-        const filename =  fileUpload.save(req.file.path)
+      ( async function() {
+         try{ 
+          const imagePath = path.join( './public/uploads')
+          console.log(imagePath)
+  
+          const fileUpload = new Resize(imagePath)
+           const fileSaveResponse =  await fileUpload.save(req.file.buffer)
+           console.log("from product controller", req.file)
+           console.log(fileUpload.filename + " file name for multer")
+         } catch(err){
+          console.log(err)
+         
+         }
+      
 
       //   let product = new Product(req.body, req.file)
       //   product.create().then( async (data)=>{
@@ -91,7 +60,7 @@ exports.submitProduct = function(req, res) {
         
       
     }
-  });
+  }) 
       
 }
 
@@ -151,7 +120,7 @@ exports.updateImage = function(req, res) {
         
       
     }
-  });
+  })
  
 }
 
