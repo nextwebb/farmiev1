@@ -128,13 +128,24 @@ Product.viewSingleProduct = function(productId) {
  })
 }
 
-Product.prototype.updateImage = function() {
+Product.updateImage = function(id, data) {
   return new Promise(async (resolve, reject) => {
-    try {
-      
-    } catch(error) {
-      reject(err)
-    }
+    
+      let query = {
+        _id:  new ObjectID(id)
+      }
+      let update = {
+        $set : {
+          image : data
+        }
+      }
+      await ProductsCollection.findOneAndUpdate(query, update).then(()=>{
+        resolve("Succesfully Updated db!")
+      }).catch((err)=>{
+        reject(err)
+      })
+       
+    
   })
 }
 
@@ -155,8 +166,7 @@ Product.prototype.actuallyUpdate = function() {
         createdDate: new Date(),
         image: this.data.image
           } };
-        await ProductsCollection.findOneAndUpdate(query, update, {
-        })
+        await ProductsCollection.findOneAndUpdate(query, update)
         .then((obj) => { 
 
           resolve(obj + "sucessfully updated!")

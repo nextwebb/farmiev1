@@ -425,12 +425,12 @@
                   </div>
                   <div class="card-body">
                     <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4"  id="editImage" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
+                      <img  class="img-fluid px-3 px-sm-4 mt-3 mb-4"  id="editImage" style="width: 25rem;" src="/<%= product.image %>" alt="<%= product.name %>" title="<%= product.name %>">
                     </div>
                     <form>
                       <div class="form-group">
                         <input type="hidden" id="uploadcsrf" name="_csrf" value="<%= csrfToken %>">
-                        <input type="file" class="form-control-file" id="upload">
+                        <input type="file" class="form-control-file" id="imageUpload" name="uploads" >
                       </div>
                     </form>
                   

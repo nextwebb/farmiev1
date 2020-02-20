@@ -10,6 +10,8 @@ export default class ViewSingleProduct {
         this.showDesc = document.querySelector("#showDesc")
         this.updated = new Date()
         this.productId = document.querySelector('[name="productId"]').value
+       
+       
 
        
        
@@ -27,7 +29,7 @@ export default class ViewSingleProduct {
         this.editDesc = document.querySelector("#editDesc")
         this.editLocation = document.querySelector("#editLocation")
         this.editImage = document.querySelector("#editImage").src
-        this.imagefile = document.querySelector('#fileUpload')
+        this.imagefile = document.querySelector('#imageUpload')
        
         this.events()
 
@@ -45,7 +47,8 @@ export default class ViewSingleProduct {
         this.editDesc.addEventListener("focusout", () => this.onfocusHandler())
         this.editLocation.addEventListener("focusout", () => this.onfocusHandler())
         this.imagefile.addEventListener('change', event => {
-          this.handleImageUpload(event)
+           this.handleImageUpload(event)
+          
         })
          //To include the CSRF token in all your request just do that 
        axios.defaults.headers.post['X-CSRF-Token'] = this._csrf.value
@@ -70,27 +73,23 @@ export default class ViewSingleProduct {
     }
 
      handleImageUpload(event){
-      this.files = event.target.files
-      this.formData = new FormData()
+       //console.log(event.target.files)
+       this.files = event.target.files
+       this.formData = new FormData()
      
-      //upload image file
-      this.formData.append('myFile', this.files[0]) 
-      
-      console.log(this.formData)
-      axios.post('/admin/upload_file/', 
+       console.log(this.files[0])
+     
+      // //upload image file
+       this.formData.append('uploads', this.files[0]) 
+
+       axios.post(`/admin/upload_file/${this.productId}`, 
         this.formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-          }
-           })
-      .then()
-      .then(data => {
-        console.log(data.path)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-    }
+        }
+    })
+      
+  }
 
     sendRequest() {
         axios.post('/admin/updateProduct/', {
