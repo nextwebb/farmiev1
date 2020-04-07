@@ -67,6 +67,7 @@ exports.viewAllProduct = function(req, res) {
 exports.updateSingleProduct = function(req, res){
   Product.viewSingleProduct(req.params.id).then((product)=>{
     res.render("view_single_product", {product: product})
+    console.log(product)
     
   }).catch((err)=>{
     console.log(err)
@@ -85,35 +86,34 @@ exports.updateProduct = function(req, res){
 }
 
 exports.updateImage = function(req, res) {
- 
   upload(req, res, (err) => {
     console.log(req.params.id)   
     if(err){
-      
      console.log(err)
-     
     } else {
-
      console.log('req.file', req.file )
-
      const imagePath = path.join( './public/uploads')
     //  console.log(imagePath)
           let fileUpload = new Resize(imagePath)
           let fileSaveResponse =  fileUpload.save(req.file.buffer).then((data)=>{
             console.log(data)
+
             Product.updateImage(req.params.id, data).then((response)=>{
               console.log(response)
               req.flash("success", response)
+              //I figured this out after. Apparently, you cannot do a redirect from the server when you make an Axios post request.
+              // At least not the way that I was doing it (with the default Axios config.) You need to do the page change on the client side.
 
-              req.session.save(()=> res.redirect(`/admin/update-single-product/${productId}`))
+              req.session.save(()=> res.redirect(`/admin/update-single-product/${req.params.id}`))
+
             }).catch((err)=>{
-                  console.log(err)
+                  console.err(err)
             })
 
           }).catch((err)=>{
               console.log(err)
               errors.forEach(error => req.flash("errors", error))
-              req.session.save(() => res.redirect(`/admin/update-single-product/${productId}`))
+              req.session.save(() => res.redirect(`/admin/update-single-product/${req.params.id}`))
           })
        
     }

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
+const servicesController = require('./controllers/servicesController')
 
 
 
@@ -30,6 +31,17 @@ router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmi
 router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
 
 router.post("/admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct) 
+
+router.get("/admin/services",userController.mustBeLoggedIn, servicesController.viewAllServices )
+
+router.get("/admin/services",userController.mustBeLoggedIn, servicesController.viewSingleService )
+
+router.post("/admin/services",userController.mustBeLoggedIn, servicesController.createService )
+
+router.post("/admin/services",userController.mustBeLoggedIn, servicesController.deleteSingleService )
+
+
+
 
 router.get("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
 

@@ -87,6 +87,11 @@ export default class ViewSingleProduct {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
+    }).then(()=>{
+      //You need to do the page change on the client side.
+      window.location = `/admin/update-single-product/${this.productId}`; 
+    }). catch(()=>{
+      console.log("error occured during upload!")
     })
       
   }

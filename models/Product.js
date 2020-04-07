@@ -30,6 +30,7 @@ Product.prototype.cleanUp = function() {
   if (this.file && typeof(this.file.filename) != "string") {this.file.filename = ""}
 
   // get rid of any bogus properties
+  
   this.data = {
     name: sanitizeHTML(this.data.name.trim(), {allowedTags: [], allowedAttributes: {}}),
     catName: sanitizeHTML(this.data.catName.trim(), {allowedTags: [], allowedAttributes: {}}),

@@ -1,5 +1,4 @@
-
-<%- include('includes/admin_header') %>
+  <%- include('includes/admin_header') %>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -193,105 +192,163 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
+          <!-- Content Row -->
+          <div class="row">
 
-          <div class="col-md-6 bg-success newProduct" style="border-radius: 10px;">
+            <div class="col-mx-auto mt-4 mb-" >
+             
+                  <h1 class="h3 mb-4 text-gray-800">
+                   
+                      
+                    <button type="submit" class="btn btn-primary addService">
+                      <strong> Add Service</strong> <i class="fa fa-plus-circle" style="font-size:18px"></i>
+                    </button>
+                 
+                  </h1>
+             
+              
+            
+          </div>
+
            
-                <div class="m-4 ">
-                    <h1 class="h3 mb-4 text-gray-800">
-                        <button type="button" class="btn btn-success ">
-                          <strong> New Product  </strong> 
-                        </button>
-                      </h1>
+
+      
+          <div class="row addServiceBox" >
+
+              <div class="col-md-3 mb-4">
+
+                <!-- Illustrations -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Intensive Fruit Farming</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                    </div>
+                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                    
+                  </div>
                 </div>
-          
+
+                
+
+              </div>
+
+              <div class="col-md-3 mb-4">
+
+                <!-- Illustrations -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Beef Cattle Farming</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                    </div>
+                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                  
+                  </div>
+                </div>
+
+                
+
+                
+
+              </div>
+
+              <div class="col-md-3 mb-4">
+
+                <!-- Illustrations -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Chicken Farming</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                    </div>
+                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                    
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-3 mb-4">
+
+                
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Pig Farming</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                    </div>
+                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                    
+                  </div>
+                </div>
+
+                
+
+                
+
+              </div>
 
           </div>
+
           
-         
-          <div class="container">
-              <%- include('./includes/flash') %>
-            <div class="row">
-              <div class="col-md-6">
-                  <form class="productForm d-none" method="POST" action="/admin/submit-product?_csrf=<%= csrfToken %>" enctype="multipart/form-data" > <!--d-none-->
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <label for="prouctName"><strong> Product Name</strong></label>
-                        <input type="text" name="name" class="form-control name" id="name" placeholder="">
-                      </div>
-                      <div class="form-group col-md-12">
-                        <label for="catName"><strong> Category Name</strong></label>
-                        <select class="form-control" name="catName" id="catName" placeholder="">
-                          <option>Cash Crops</option>
-                          <option>Livestocks</option>
-                          <option>Dairy Products</option>
-                          <option>Others</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="quantity"> <strong>Product Quantity</strong> </label>
-                            <input type="text" name="quantity" class="form-control quantity" id="quantity" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                              <label for="rate"><strong>Product Rate</strong></label>
-                              <input type="text" name="rate" class="form-control rate" id="rate" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="discount"><strong>Discounted Rate</strong></label>
-                            <input type="text" name="discount" class="form-control discount" id="discount" placeholder="">
-                          </div>
-                    </div>
-                 
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label for="location"><strong>Location</strong></label>
-                        <input type="text" name="location" class="form-control location" id="location" placeholder="e.g ikeja lagos">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="uploads">
-                            <label class="custom-file-label" for="customFile">Choose image file</label>
-                          </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="desc"><strong> Product Description</strong> </label>
-                        <textarea  name="desc" class="form-control desc" id="desc" rows="3"></textarea>
-                      </div>
-                       <input type="hidden" name="uploads" value="products">
-                    <button type="submit" class="btn btn-primary">Upload  <i class="fa fa-paper-plane" aria-hidden="true"></i> </button> 
-                  </form>
-              </div>
 
-              <div class="col-md-6 mt-4">
-                  <div class="float-right">
-                      <h1 class="h3 mb-4 text-gray-800">
-                        <form method="POST" action="/admin/view-products" >
-                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button type="submit" class="btn btn-primary allProduct">
-                          <strong> All Product</strong> <i class="fa fa-angle-double-right" style="font-size:18px"></i>
-                        </button>
-                      </form>
-                      </h1>
+          <div  class=" mt-4 row addServiceForm ">
+            <div class="col-md-6">
+                <form class="" method="POST" action="/admin/submit-product?_csrf=<%= csrfToken %>" enctype="multipart/form-data" > <!--d-none-->
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="prouctName"><strong> Service Name</strong></label>
+                      <input type="text" name="name" class="form-control name" id="name" placeholder="">
+                    </div>
+                    
                   </div>
-                  
-                
-              </div>
-              
-
+               
+                  <div class="form-group">
+                      <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="customFile" name="uploads">
+                          <label class="custom-file-label" for="customFile">Choose image file</label>
+                        </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="desc"><strong> Service Description</strong> </label>
+                      <textarea  name="desc" class="form-control desc" id="desc" rows="3"></textarea>
+                    </div>
+                     <input type="hidden" name="uploads" value="products">
+                  <button type="submit" class="btn btn-primary">Upload  <i class="fa fa-paper-plane" aria-hidden="true"></i> </button> 
+                </form>
             </div>
 
+            <div class="col-md-6 mt-4">
+                <div class="float-right">
+                    <h1 class="h3 mb-4 text-gray-800">
+                      <form method="POST" action="/admin/view-products" >
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" class="btn btn-primary allProduct">
+                        <strong> All Product</strong> <i class="fa fa-angle-double-right" style="font-size:18px"></i>
+                      </button>
+                    </form>
+                    </h1>
+                </div>
+                
+              
+            </div>
+            
+
           </div>
-         
 
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
-      <%- include('includes/admin_footer') %>
 
-
-     
+    <%- include('includes/admin_footer') %>
