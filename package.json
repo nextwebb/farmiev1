@@ -11,7 +11,7 @@
   "author": "https://nextwebb.com.ng",
   "license": "CC-BY-3.0",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^4.0.2"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
@@ -25,7 +25,7 @@
     "connect-mongo": "^3.0.0",
     "cors": "^2.8.5",
     "csurf": "^1.10.0",
-    "dompurify": "^1.0.11",
+    "dompurify": "^2.0.8",
     "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "elegant-icons": "0.0.1",
@@ -33,7 +33,7 @@
     "express-session": "^1.16.2",
     "font-awesome": "^4.7.0",
     "jarallax": "^1.10.6",
-    "jquery": "^2.2.4",
+    "jquery": "^3.4.1",
     "jquery-sticky": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
     "magnific-popup": "^1.1.0",
@@ -41,7 +41,7 @@
     "md5": "^2.2.1",
     "mongodb": "^3.3.0",
     "multer": "^1.4.2",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.2",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.14.5",
     "sanitize-html": "^1.20.1",
