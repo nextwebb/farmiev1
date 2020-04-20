@@ -27,21 +27,11 @@ router.get("/admin/logout",userController.mustBeLoggedIn, userController.logOut 
 
 router.get("/admin",userController.mustBeLoggedIn, userController.redirectToAdmin )
 
+
 // products related routes
 router.get("/admin/create-product",userController.mustBeLoggedIn, productController.createProduct )
 
 router.post("/admin/submit-product",userController.mustBeLoggedIn, productController.submitProduct) 
-
-router.get("/admin/services",userController.mustBeLoggedIn, servicesController.viewAllServices )
-
-router.get("/admin/services",userController.mustBeLoggedIn, servicesController.viewSingleService )
-
-router.post("/admin/services",userController.mustBeLoggedIn, servicesController.createService )
-
-router.post("/admin/services",userController.mustBeLoggedIn, servicesController.deleteSingleService )
-
-
-
 
 router.get("/admin/view-products", userController.mustBeLoggedIn, productController.viewAllProduct);
 
@@ -55,13 +45,10 @@ router.post("/admin/upload_file/:id", userController.mustBeLoggedIn, productCont
 
 router.post("/admin/deleteSingle/:id", userController.mustBeLoggedIn, productController.deleteSingle)
 
+// services routes
+router.get('/admin/services', userController.mustBeLoggedIn, servicesController.viewAllServices)
 
-// router.get("/purchase", userController.purchse); 
-// router.get("/delivery", userController.delivery);
-// router.get("/return", userController.return);
-// router.get("/partners", userController.partners);
-// router.get("/faqs", userController.faqs);
-// router.get("/payments", userController.payments);
+router.post("/admin/create-service",userController.mustBeLoggedIn, servicesController.createService )
 
 
 

@@ -39,138 +39,52 @@
             
           </div>
 
-           
-
-      
-          <div class="row addServiceBox" >
-
-              <div class="col-md-3 mb-4">
-
+          <div class="row allServiceBox" >
+            <% for( let index = 0; index < services.length; index++ ) { %>
+              <div class="col-md-3 mb-4" >
                 <!-- Illustrations -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Intensive Fruit Farming</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">  <%=services[index].name.toUpperCase() %> </h6>
                   </div>
                   <div class="card-body">
                     <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4"  src="/<%- services[index].image %>" alt="">
                     </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                    <p><%=services[index].desc %></p>
                     
                   </div>
                 </div>
-
-                
-
               </div>
-
-              <div class="col-md-3 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Beef Cattle Farming</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
-                    </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                  
-                  </div>
-                </div>
-
-                
-
-                
-
-              </div>
-
-              <div class="col-md-3 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Chicken Farming</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
-                    </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                    
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="col-md-3 mb-4">
-
-                
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Pig Farming</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
-                    </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                    
-                  </div>
-                </div>
-
-                
-
-                
-
-              </div>
-
+            <% } %>
           </div>
 
           
 
           <div  class=" mt-4 row addServiceForm ">
-            <div class="col-md-6">
-                <form class="" method="POST" action="/admin/submit-product?_csrf=<%= csrfToken %>" enctype="multipart/form-data" > <!--d-none-->
+            <div class="col-md-12">
+                <form class="" method="POST" action="/admin/create-service?_csrf=<%= csrfToken %>" enctype="multipart/form-data" > <!--d-none-->
                   <div class="form-row">
                     <div class="form-group col-md-12">
                       <label for="prouctName"><strong> Service Name</strong></label>
-                      <input type="text" name="name" class="form-control name" id="name" placeholder="">
+                      <input type="text" name="name" class="form-control name" id="name" placeholder="Enter New Farm Service Name" required>
                     </div>
                     
                   </div>
                
                   <div class="form-group">
-                      <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="customFile" name="uploads">
-                          <label class="custom-file-label" for="customFile">Choose image file</label>
-                        </div>
-                  </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" name="uploads">
+                        <label class="custom-file-label" for="customFile">Choose image file</label>
+                      </div>
+                </div>
                   <div class="form-group">
                       <label for="desc"><strong> Service Description</strong> </label>
-                      <textarea  name="desc" class="form-control desc" id="desc" rows="3"></textarea>
+                      <textarea  name="desc" class="form-control desc" required id="desc" rows="3"></textarea>
                     </div>
-                     <input type="hidden" name="uploads" value="products">
                   <button type="submit" class="btn btn-primary">Upload  <i class="fa fa-paper-plane" aria-hidden="true"></i> </button> 
                 </form>
-            </div>
-
-            <div class="col-md-6 mt-4">
-                <div class="float-right">
-                    <h1 class="h3 mb-4 text-gray-800">
-                      <form method="POST" action="/admin/view-products" >
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                      <button type="submit" class="btn btn-primary allProduct">
-                        <strong> All Product</strong> <i class="fa fa-angle-double-right" style="font-size:18px"></i>
-                      </button>
-                    </form>
-                    </h1>
-                </div>
-                
-              
-            </div>
-            
+            </div>            
 
           </div>
 
