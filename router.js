@@ -50,6 +50,8 @@ router.get('/admin/services', userController.mustBeLoggedIn, servicesController.
 
 router.post("/admin/create-service",userController.mustBeLoggedIn, servicesController.createService )
 
+// services API's
+router.get('/api/v1/admin-services/viewAllServicesApi', servicesController.viewAllServicesApi)
 
 
 
