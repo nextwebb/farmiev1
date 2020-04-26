@@ -3,6 +3,7 @@ import CreateProduct from './modules/createProduct'
 import ViewProducts from './modules/viewProducts'
 import ViewSingleProduct from './modules/viewSingleProduct'
 import Services from './modules/Services'
+import GuestService from './modules/guestServices'
 
 if (document.querySelector('.regForm')){
     new RegisterAdmin()
@@ -18,4 +19,7 @@ if (document.querySelector('#singleProduct')){
 }
 if (document.querySelector('.addService')){
     new Services()
+}
+if (document.querySelector('.serviceGuestArea')){
+    new GuestService()
 }
