@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
 const servicesController = require('./controllers/servicesController')
+const siteprofileController = require('./controllers/siteprofileController')
 
 
 
@@ -52,6 +53,8 @@ router.post("/admin/create-service",userController.mustBeLoggedIn, servicesContr
 
 // services API's
 router.get('/api/v1/admin-services/viewAllServicesApi', servicesController.viewAllServicesApi)
+
+router.get('/api/v1/site-profile/viewAllSitedata', siteprofileController.viewAllSitedataApi)
 
 
 
