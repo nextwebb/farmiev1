@@ -63,7 +63,7 @@ exports.viewAllServicesApi = function(req, res) {
  
 }
 
-exports.deleteSingleService = function(req, res){
+exports.updateService = function(req, res){
 
 }
 

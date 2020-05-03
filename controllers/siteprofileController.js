@@ -12,3 +12,13 @@ exports.viewAllSitedataApi = function(req, res){
         console.log(err)
     })
 }
+
+exports.updateSitedataApi = function(req, res){
+    console.log(req.body)
+    // let profile = new Siteprofile(req.body)
+    //     profile.updateSitedata().then(()=>{
+    //         console.log("success!")
+    //     }).catch((err)=>{
+    //         console.log(err)
+    //     })
+}

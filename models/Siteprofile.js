@@ -14,19 +14,40 @@ let Siteprofile = function(data, file){
 }
 
 Siteprofile.prototype.cleanUp = function(){
-  if (typeof(this.data.name) != "string") {this.data.name = ""}
-  if (typeof(this.data.desc) != "string") {this.data.desc = ""}
+  if (typeof(this.data.sitetitle) != "string") {this.data.sitetitle = ""}
+  if (typeof(this.data.smalltext) != "string") {this.data.smalltext = ""}
+  if (typeof(this.data.about) != "string") {this.data.about = ""}
+  if (typeof(this.data.contacts.phone) != "number") {this.data.contacts.phone = ""}
+
+  if (typeof(this.data.contacts.Address) != "string") {this.data.contacts.Address = ""}
+
+  if (typeof(this.data.contacts.email) != "string") {this.data.contacts.email = ""}
+
   if (this.file && typeof(this.file.filename) != "string") {this.file.filename = ""}
 
   // get rid of any bogus properties
 
   this.data = {
-    name: sanitizeHTML(
-      this.data.name.trim(), {allowedTags: [], allowedAttributes: {}}
+    sitetitle: sanitizeHTML(
+      this.data.sitetitle.trim(), {allowedTags: [], allowedAttributes: {}}
     ),
-    desc: sanitizeHTML(
-      this.data.desc.trim(), {allowedTags: [], allowedAttributes: {}}
+    smalltext: sanitizeHTML(
+      this.data.smalltext.trim(), {allowedTags: [], allowedAttributes: {}}
       ),
+    about: sanitizeHTML(
+      this.data.about.trim(), {allowedTags: [], allowedAttributes: {}}
+    ),
+    contacts:{
+      phone: sanitizeHTML(
+        this.data.contacts.phone.trim(), {allowedTags: [], allowedAttributes: {}}
+      ),
+      phone: sanitizeHTML(
+        this.data.contacts.Address.trim(), {allowedTags: [], allowedAttributes: {}}
+      ),
+      email: sanitizeHTML(
+        this.data.contacts.email.trim(), {allowedTags: [], allowedAttributes: {}}
+      )
+    }, 
     image : this.ifImageExists(this.file)
   }
 }
@@ -39,44 +60,40 @@ Siteprofile.prototype.ifImageExists = function(data) {
   }
 }
 
-Siteprofile.prototype.validate = function() {
 
-  if (this.data.name == "") {this.errors.push("You must provide the Service name.")}
-  if (this.data.desc == "") {this.errors.push("You must provide the Service description.")}
-  if (!this.file ) {this.errors.push("Error: No Service Image File Selected!.")}
 
-}
+Siteprofile.viewAllSitedata = function() {
+  return new Promise(async (resolve, reject) =>{
+//console.log(siteprofileCollection)
+    try {
+      let profile = await siteprofileCollection.find({}).toArray()
+        resolve(profile)
 
-Siteprofile.prototype.update = function() {
-  return new Promise( async(resolve, reject) => {
-    this.cleanUp()
-    this.validate()
-    if (!this.errors.length) {
-      // save Product into database
-       console.log(this.data)      
-      SiteprofileCollection.insertOne(this.data)
-      .then((info) => {
-      resolve(info.ops[0]._id)
-     }
-     ).catch(() => {
-        console.log("Theres were some errors")
-        this.errors.push("Please try again later.")
-        reject(this.errors)
-        
-     })
-    } else {
-      reject(this.errors)
+    } catch (error) {
+      reject(error)
     }
   })
 }
 
-Siteprofile.viewAllSitedata = function() {
+Siteprofile.updateSitedata =  function() {
+     this.cleanUp()
   return new Promise(async (resolve, reject) =>{
+//console.log(siteprofileCollection)
     try {
-      let profile = await SiteprofileCollection.find({}).toArray()
-        resolve(profile)
-
-    } catch (error) {
+      let profile = await siteprofileCollection.update(
+        {_id: new ObjectID(this.data._id) },
+        {
+         $set: {
+              sitetitle:this.data.sitetitle,
+              smalltext: this.data.smalltext,
+              about: this.data.about,
+              "contact.phone": this.data.contacts.phone,
+              "contact.Address": this.data.contacts.    Address,
+              "contact.email": this.data.contacts.email
+         }
+      }) 
+    } 
+    catch (error) {
       reject(error)
     }
   })

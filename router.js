@@ -51,10 +51,12 @@ router.get('/admin/services', userController.mustBeLoggedIn, servicesController.
 
 router.post("/admin/create-service",userController.mustBeLoggedIn, servicesController.createService )
 
-// services API's
+//  API's
 router.get('/api/v1/admin-services/viewAllServicesApi', servicesController.viewAllServicesApi)
 
 router.get('/api/v1/site-profile/viewAllSitedata', siteprofileController.viewAllSitedataApi)
+
+router.post('api/v1/site-profile/update', siteprofileController.updateSitedataApi)
 
 
 

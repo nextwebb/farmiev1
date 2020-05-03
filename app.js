@@ -49,6 +49,8 @@ app.use(function(req, res, next) {
 
 app.use('/', function(err, req, res, next) {
     if(err){
+       // console.log(err)
+        // return;
         if(err.code == "EBADCSRFTOKEN") {
             req.flash('errors', 'Cross site request forgery detected.')
             req.session.save(() => res.redirect('/'))
