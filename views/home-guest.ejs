@@ -426,7 +426,7 @@ new Vue({
         info:null
     },
     created () {
-      fetch('/api/v1/admin-services/viewAllServicesApi')
+      fetch('/api/v1/services/viewAllServices')
       .then((resp) => resp.json()) 
       .then(data => (this.info = data))
   }

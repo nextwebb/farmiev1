@@ -17,17 +17,18 @@ Siteprofile.prototype.cleanUp = function(){
   if (typeof(this.data.sitetitle) != "string") {this.data.sitetitle = ""}
   if (typeof(this.data.smalltext) != "string") {this.data.smalltext = ""}
   if (typeof(this.data.about) != "string") {this.data.about = ""}
-  if (typeof(this.data.contacts.phone) != "number") {this.data.contacts.phone = ""}
+  if (typeof(this.data.contacts.phone) != "string") {this.data.contacts.phone = ""}
 
   if (typeof(this.data.contacts.Address) != "string") {this.data.contacts.Address = ""}
 
   if (typeof(this.data.contacts.email) != "string") {this.data.contacts.email = ""}
 
-  if (this.file && typeof(this.file.filename) != "string") {this.file.filename = ""}
+  if (typeof(this.data.logo) != "string") {this.data.contacts.logo = ""}
 
   // get rid of any bogus properties
 
   this.data = {
+    _id : ObjectID(this.data._id),
     sitetitle: sanitizeHTML(
       this.data.sitetitle.trim(), {allowedTags: [], allowedAttributes: {}}
     ),
@@ -41,22 +42,14 @@ Siteprofile.prototype.cleanUp = function(){
       phone: sanitizeHTML(
         this.data.contacts.phone.trim(), {allowedTags: [], allowedAttributes: {}}
       ),
-      phone: sanitizeHTML(
+      Address: sanitizeHTML(
         this.data.contacts.Address.trim(), {allowedTags: [], allowedAttributes: {}}
       ),
       email: sanitizeHTML(
         this.data.contacts.email.trim(), {allowedTags: [], allowedAttributes: {}}
       )
     }, 
-    image : this.ifImageExists(this.file)
-  }
-}
-
-Siteprofile.prototype.ifImageExists = function(data) {
-  if(data){
-    return data.filename
-  } else{
-    return this.imagepath.slice(22);
+    
   }
 }
 
@@ -75,12 +68,13 @@ Siteprofile.viewAllSitedata = function() {
   })
 }
 
-Siteprofile.updateSitedata =  function() {
+Siteprofile.prototype.updateSitedata =  function() {
      this.cleanUp()
+     //console.log(this.data)
   return new Promise(async (resolve, reject) =>{
-//console.log(siteprofileCollection)
+
     try {
-      let profile = await siteprofileCollection.update(
+       await siteprofileCollection.updateOne(
         {_id: new ObjectID(this.data._id) },
         {
          $set: {
@@ -91,10 +85,11 @@ Siteprofile.updateSitedata =  function() {
               "contact.Address": this.data.contacts.    Address,
               "contact.email": this.data.contacts.email
          }
-      }) 
+      })
+      resolve("successfully updated site profile!") 
     } 
     catch (error) {
-      reject(error)
+      reject("An error occured , try again later!")
     }
   })
 }

@@ -5,20 +5,14 @@ const path =    require('path')
 const upload =  require('../uploadMiddleware').single('uploads')
 
 exports.viewAllSitedataApi = function(req, res){
-    Siteprofile.viewAllSitedata().then((sitedata)=>{
-        //console.log(sitedata)
-        res.json(sitedata)
-    }).catch((err)=>{
-        console.log(err)
-    })
+    Siteprofile.viewAllSitedata().then(sitedata=>
+        res.json(sitedata)).catch(err=>
+        res.json(err))
 }
 
 exports.updateSitedataApi = function(req, res){
-    console.log(req.body)
-    // let profile = new Siteprofile(req.body)
-    //     profile.updateSitedata().then(()=>{
-    //         console.log("success!")
-    //     }).catch((err)=>{
-    //         console.log(err)
-    //     })
+   let profile = new Siteprofile(req.body)
+   profile.updateSitedata().then(data=>
+        res.json(data)).catch(err=>
+        res.json(err))
 }

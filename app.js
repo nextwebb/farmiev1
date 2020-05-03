@@ -13,6 +13,8 @@ const router = require('./router');//it expects a file router.js
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+app.use('/api', require('./router-api'))
+
 let sessionOptions = session({
     secret: "codeninja writing nodejs",
     store: new MongoStore({client: require('./db')}),
@@ -49,8 +51,8 @@ app.use(function(req, res, next) {
 
 app.use('/', function(err, req, res, next) {
     if(err){
-       // console.log(err)
-        // return;
+        console.log(err)
+        return;
         if(err.code == "EBADCSRFTOKEN") {
             req.flash('errors', 'Cross site request forgery detected.')
             req.session.save(() => res.redirect('/'))

@@ -32,8 +32,9 @@
             </button>
           </div>
 
-          <!-- Content Row -->
-          <div class="row">
+          <div v-if="siteProfile">
+            
+            <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-md-6 mb-4">
@@ -43,6 +44,7 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ">
                         <textarea class="form-control overflow-hidden jumboText" name="sitetitle" aria-label="With textarea" v-model="siteProfile.sitetitle">
+                          
                         </textarea>
 
                       </div>
@@ -70,11 +72,11 @@
               </div>
             </div>
 
-          </div>
+            </div>
 
-          <!-- Content Row -->
+            
 
-          <div class="row">
+            <div class="row">
 
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
@@ -121,10 +123,11 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           <!-- Content Row -->
-          <div class="row">
+          <div class="row" v-if="services">
 
             <!-- Content Column -->
             <div class="col-lg-6 mb-4">
@@ -154,7 +157,7 @@
 
             </div>
 
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 mb-4" v-if="siteProfile">
 
               <!-- Illustrations -->
               <div class="card shadow mb-4">
@@ -165,9 +168,7 @@
                   <div class="text-center">
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" v-bind:src="siteProfile.logo" alt="">
                   </div>
-                  <p>
-                    Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!
-                  </p>
+                  
                 </div>
               </div>
             </div>
@@ -190,44 +191,56 @@
                 siteProfile: null,
                 services: [], 
               },
-            created () {
-              fetch('/api/v1/admin-services/viewAllServicesApi')
+            async created () {
+               await fetch('/api/v1/admin-services/viewAllServicesApi')
               .then((resp) => resp.json()) 
               .then(data => {
                // console.log(data)
                   data.forEach(doc => {
                     this.services.push(doc.name) 
-                    // console.log(this.services)
+                    
                   })
               })
 
-              fetch('/api/v1/site-profile/viewAllSitedata')
+                await fetch('/api/v1/site-profile/viewAllSitedata')
               .then((resp) => resp.json()) 
               .then(data => {
                   data.forEach(doc => {
-                      this.siteProfile = doc
-                      // console.log(doc) 
+                    this.siteProfile = doc
+                  //  console.log(this.siteProfile._id)
+                    this.siteProfile.logo = `../${this.siteProfile.logo} `
+                                        
                   });
               })
 
                },
 
               methods:{
-                  updateSiteProfile() {
-                    (async () => {
-                        const rawResponse = await fetch('/api/v1/site-profile/update', {
+                  async updateSiteProfile() {
+                      this.siteProfile = {
+                        _id: this.siteProfile._id,
+                        about : this.siteProfile.about,
+                        contacts: {
+                          Address: this.siteProfile.contacts.Address,
+                          email: this.siteProfile.contacts.email,
+                          phone: this.siteProfile.contacts.phone
+                        },
+                        sitetitle: this.siteProfile.sitetitle,
+                        smalltext: this.siteProfile.smalltext,
+                      }
+                        await fetch('/api/v1/site-profile/update', {
                           method: 'POST',
                           headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                           },
-                          body: JSON.stringify({a: 1, b: 'Textual content'})
-                        });
-                         const content = await rawResponse.json();
-
-                         console.log(content);
-                      })();
-                  }
+                          body: JSON.stringify(this.siteProfile)
+                        }).then((response)=>{
+                          return response.json();
+                        }).then(function(feedback) {
+                          console.log(feedback)
+                        }).catch(err => console.log(err) )
+                      }
               }
             })
 
