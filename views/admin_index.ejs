@@ -22,18 +22,18 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-          <form>
+        <div class="container-fluid" id="siteProfile" >
+          <form @submit.prevent="updateSiteProfile">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ">
+            <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ">
                Update Site Content
-            </a>
+            </button>
           </div>
 
           <!-- Content Row -->
-          <div class="row" id="siteProfile">
+          <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-md-6 mb-4">
@@ -42,8 +42,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ">
-                        <textarea class="form-control overflow-hidden jumboText" aria-label="With textarea">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci possimus neque quisquam placeat veritatis nisi magni quasi blanditiis, at, nobis temporibus soluta veniam laborum mollitia impedit necessitatibus delectus eveniet similique!
+                        <textarea class="form-control overflow-hidden jumboText" name="sitetitle" aria-label="With textarea" v-model="siteProfile.sitetitle">
                         </textarea>
 
                       </div>
@@ -61,8 +60,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        <textarea class="form-control overflow-hidden motto" aria-label="With textarea">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit commodi dolor necessitatibus ab provident beatae cumque in mollitia officiis odio ex
+                        <textarea class="form-control overflow-hidden motto" name="smalltext" aria-label="With textarea" v-model="siteProfile.smalltext">
                         </textarea>
                       </div>
                     </div>
@@ -90,9 +88,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <textarea class="form-control overflow-hidden about" rows="10" cols="50" aria-label="With textarea">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci possimus neque quisquam placeat veritatis nisi magni quasi blanditiis, at, nobis temporibus soluta veniam laborum mollitia impedit necessitatibus delectus eveniet similique!
-                    </textarea>
+                    <textarea class="form-control overflow-hidden about" name="about" rows="10" cols="50" aria-label="With textarea" v-model="siteProfile.about" ></textarea>
                   </div>
                 </div>
               </div>
@@ -109,16 +105,16 @@
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
                     <div class="form-group">
-                      <label for="usr">Phone:</label>
-                      <input type="text" class="form-control" id="usr">
+                      <label for="phone">Phone:</label>
+                      <input type="text" name="phone" class="form-control" v-model="siteProfile.contacts.phone">
                     </div>
                     <div class="form-group">
-                      <label for="usr">Email:</label>
-                      <input type="text" class="form-control" id="usr">
+                      <label for="email">Email:</label>
+                      <input type="text" name="email" class="form-control"  v-model="siteProfile.contacts.email">
                     </div>
                     <div class="form-group">
-                      <label for="usr">Address:</label>
-                      <input type="text" class="form-control" id="usr">
+                      <label for="Address">Address:</label>
+                      <input type="text" name="address" class="form-control" v-model="siteProfile.contacts.Address">
                     </div>
                   </div>
                  
@@ -141,21 +137,12 @@
                 <div class="card-body">
 
                       <ul class="list-group">
-                        <li class="list-group-item">
-                          <div class="input-group mb-3">
-                            <input type="text" disabled class="form-control" value="Intensive fruit farming" >
+                        <li  class="list-group-item" v-for="(service, index) in services" >
+                          <div class="input-group mb-3" >
+                            <input type="text" name="service" disabled class="form-control" v-bind:value="service" :key="index">
                           </div>
                         </li>
-                        <li class="list-group-item">
-                          <div class="input-group mb-3">
-                            <input type="text" disabled class="form-control " value="Pig farming">
-                          </div>
-                        </li>
-                        <li class="list-group-item">
-                          <div class="input-group mb-3">
-                            <input type="text" disabled class="form-control" value="Chicken farming">
-                          </div>
-                        </li>
+                       
                       </ul>
 
                   
@@ -176,7 +163,7 @@
                 </div>
                 <div class="card-body">
                   <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/undraw_posting_photo.svg" alt="">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" v-bind:src="siteProfile.logo" alt="">
                   </div>
                   <p>
                     Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!
@@ -193,3 +180,56 @@
       <!-- End of Main Content -->
 
       <%- include('includes/admin_footer') %>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+
+            var app = new Vue({
+              el: '#siteProfile',
+              data: {
+                siteProfile: null,
+                services: [], 
+              },
+            created () {
+              fetch('/api/v1/admin-services/viewAllServicesApi')
+              .then((resp) => resp.json()) 
+              .then(data => {
+               // console.log(data)
+                  data.forEach(doc => {
+                    this.services.push(doc.name) 
+                    // console.log(this.services)
+                  })
+              })
+
+              fetch('/api/v1/site-profile/viewAllSitedata')
+              .then((resp) => resp.json()) 
+              .then(data => {
+                  data.forEach(doc => {
+                      this.siteProfile = doc
+                      // console.log(doc) 
+                  });
+              })
+
+               },
+
+              methods:{
+                  updateSiteProfile() {
+                    (async () => {
+                        const rawResponse = await fetch('/api/v1/site-profile/update', {
+                          method: 'POST',
+                          headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({a: 1, b: 'Textual content'})
+                        });
+                         const content = await rawResponse.json();
+
+                         console.log(content);
+                      })();
+                  }
+              }
+            })
+
+        </script>
+
