@@ -2,6 +2,8 @@ const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const md5 = require('md5')
 const usersCollection = require("../db").db().collection("users")
+const jwt = require('jsonwebtoken');
+
 
 let User = function(data) {
    this.data = data
@@ -124,7 +126,15 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
             usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
                 if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
                     this.data = attemptedUser
-                    resolve("Congrats!")
+                                        
+                    jwt.sign({attemptedUser}, process.env.JWTSECRET, { expiresIn: '7d' },(err, token) => {
+                        
+                        if(err) { console.log(err) }    
+                        //console.log(token);
+                        resolve(token)
+                        
+                    }); 
+                   
                   } else {
                     reject("Invalid username / password.")
                   }
@@ -135,4 +145,11 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
 
         })
     }
+
+
+    
+
 module.exports = User
+
+
+//module.exports.token = this.collectToken

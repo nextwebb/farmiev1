@@ -3,6 +3,7 @@ const app = express()
 const session = require('express-session')
 const flash = require('connect-flash')
 const MongoStore = require('connect-mongo')(session)
+const cookieParser = require('cookie-parser');
 const csrf = require('csurf')
 
 
@@ -13,6 +14,8 @@ const router = require('./router');//it expects a file router.js
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+app.use(cookieParser()) 
+
 app.use('/api', require('./router-api'))
 
 let sessionOptions = session({
@@ -21,9 +24,11 @@ let sessionOptions = session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge:1000 * 60 * 60 * 24, httpOnly: true
+        maxAge:1000 * 60 * 60 * 24,
+         httpOnly: true
     }
 })
+
 
 
 
@@ -31,8 +36,10 @@ let sessionOptions = session({
 app.use(sessionOptions)
 app.use(csrf())
 app.use(flash())
-app.use(function(req, res, next) {
 
+
+app.use(function(req, res, next) {
+    //console.log(req.cookies.jwt)
     const token = req.csrfToken()
     res.locals.csrfToken = token
     res.cookie('csrf-token', token)
@@ -41,7 +48,6 @@ app.use(function(req, res, next) {
 
     res.locals.errors = req.flash("errors")
     res.locals.success = req.flash("success")
-    //res.locals.regErrors = req.flash("regErrors")
 
     // make logged in user session data available from within view templates
     res.locals.user = req.session.user
@@ -121,3 +127,9 @@ app.use('/', router);
 
 
 module.exports = app
+
+
+
+
+
+

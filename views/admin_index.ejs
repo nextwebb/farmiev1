@@ -1,12 +1,13 @@
 
   <%- include('includes/admin_header') %>
     <!-- Content Wrapper -->
+    <%= //console.log(token)  %> 
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
           <%- include('./includes/flash') %>
-
+                     
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -192,10 +193,10 @@
                 services: [], 
               },
             async created () {
-               await fetch('/api/v1/admin-services/viewAllServicesApi')
+               await fetch('/api/v1/services/viewAllServices')
               .then((resp) => resp.json()) 
               .then(data => {
-               // console.log(data)
+               //console.log(data)
                   data.forEach(doc => {
                     this.services.push(doc.name) 
                     
@@ -232,8 +233,9 @@
                           method: 'POST',
                           headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json' 
                           },
+                          credentials: 'include',
                           body: JSON.stringify(this.siteProfile)
                         }).then((response)=>{
                           return response.json();

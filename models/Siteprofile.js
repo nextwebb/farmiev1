@@ -71,6 +71,7 @@ Siteprofile.viewAllSitedata = function() {
 Siteprofile.prototype.updateSitedata =  function() {
      this.cleanUp()
      //console.log(this.data)
+     
   return new Promise(async (resolve, reject) =>{
 
     try {
@@ -83,7 +84,8 @@ Siteprofile.prototype.updateSitedata =  function() {
               about: this.data.about,
               "contact.phone": this.data.contacts.phone,
               "contact.Address": this.data.contacts.    Address,
-              "contact.email": this.data.contacts.email
+              "contact.email": this.data.contacts.email,
+              token: this.data.token
          }
       })
       resolve("successfully updated site profile!") 

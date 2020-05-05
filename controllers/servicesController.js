@@ -6,7 +6,6 @@ const upload =  require('../uploadMiddleware').single('uploads')
 
 exports.viewAllServices = function(req, res) {
   Services.veiwAllProducts().then((services)=>{
-    console.log(services)
     res.render("admin_services", {services:services})
   }).catch((err)=>{
     console.log(err)
