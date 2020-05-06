@@ -9,6 +9,7 @@ const cors = require('cors')
 // httponly and secure https option prevents XXS attacks
 // Using cookies + jwt i'm prone too to CSRF attacks 
 // Increase CSRF protection by restricting  Origin access
+const allowedDomains = [`${process.env.FRONTENDURL}`, 'http://localhost:4000'];
   apiRouter.use(cors({
   
     origin: function (origin, callback) {
