@@ -6,19 +6,28 @@ const servicesController = require('./controllers/servicesController')
 const siteprofileController = require('./controllers/siteprofileController')
 const cors = require('cors')
 
-
-apiRouter.use(
-    cors({
-        credentials: true,
-      origin: [
-        `${process.env.FRONT_URL}`,
-        'http://localhost:4000/admin',
-      ]
-     
-    })
-  );
-
-
+// httponly and secure https option prevents XXS attacks
+// Using cookies + jwt i'm prone too to CSRF attacks 
+// Increase CSRF protection by restricting  Origin access
+  apiRouter.use(cors({
+  
+    origin: function (origin, callback) {
+  
+      if (allowedDomains.indexOf(origin) === -1) {
+  
+        const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+  
+        return callback(new Error(msg), false);
+  
+      }
+  
+      return callback(null, true);
+  
+    },
+    credentials: true,
+  
+  }));
+  
 
 
 
