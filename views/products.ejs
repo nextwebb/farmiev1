@@ -25,7 +25,7 @@
   <!-- ##### Breadcrumb Area End ##### -->
 
   <!-- ##### About Us Area Start ##### -->
-  <section class="about-us-area">
+  <section class="about-us-area" id="productTitleArea">
     <div class="container">
       <div class="row align-items-center">
 
@@ -38,8 +38,7 @@
               <h2><span>The Future</span> Of Agriculture </h2>
               <img src="img/core-img/decor.png" alt="">
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetu adipiscing elit. Etiam nunc elit, pretium atlanta urna veloci, fermentum malesuda mina. Donec auctor nislec neque sagittis, sit amet dapibus pellentesque donal feugiat. Nulla mollis magna non
-              sanaliquet, volutpat do zutum, ultrices consectetur, ultrices at purus.</p>
+            <p>{{title}}</p>
           </div>
         </div>
 
@@ -149,133 +148,35 @@
         </div>
       </div>
 
-      <div class="row">
+     
 
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p1.jpg" alt="">
-              <!-- Product Tags -->
-              <span class="product-tags">Hot</span>
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Strawberry</a>
-              <h6 class="price">$17.99</h6>
-            </div>
-          </div>
-        </div>
+        <div class="row justify-content-center" id="productsArea">          
+                  <!-- Single Product Area -->
+                  <div class="col-12 col-sm-6 col-lg-3" v-for="(product, index) in products ">
+                    <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="700ms">
+                      <!-- Product Thumbnail -->
+                      <div class="product-thumbnail">
+                        <img v-bind:src="product.image" v-bind:alt="product.name" class="img-fluid" style="width:270px;height:226px;">
+                        <!-- Product Tags -->
+                        <span class="product-tags bg-danger">Sale</span>
+                        <!-- Product Meta Data -->
+                       
+                      </div>
+                      <!-- Product Description -->
+                      <div class="product-desc text-center pt-4">
+                        <a href="#" class="product-title">{{product.name}}</a>
+                        <h6 class="price"><span>&#8358;{{product.rate}}></span>&#8358; {{product.discount}}</h6>
+                      </div>
+                    </div>
+                  </div>
+          
+                </div>
 
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p2.jpg" alt="">
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Baked Breads</a>
-              <h6 class="price">$9.99</h6>
-            </div>
-          </div>
-        </div>
-
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p3.jpg" alt="">
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Prime Beef</a>
-              <h6 class="price">$59.99</h6>
-            </div>
-          </div>
-        </div>
-
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="single-product-area mb-50">
-            <!-- Product Thumbnail -->
-            <div class="product-thumbnail">
-              <img src="img/bg-img/p4.jpg" alt="">
-              <!-- Product Tags -->
-              <span class="product-tags bg-danger">Sale</span>
-              <!-- Product Meta Data -->
-              <div class="product-meta-data">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="icon_heart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon_cart_alt"></i></a>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
-              </div>
-            </div>
-            <!-- Product Description -->
-            <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title">Pure Honey</a>
-              <h6 class="price"><span>$29.99</span> $19.99</h6>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
      
     </div>
   </section>
   <!-- ##### Our Products Area End ##### -->
-
-  <!-- ##### Newsletter Area Start ##### -->
-  <section class="newsletter-area section-padding-100 bg-img bg-overlay jarallax" style="background-image: url('img/bg-img/8.jpg');">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-          <div class="newsletter-content">
-            <!-- Section Heading -->
-            <div class="section-heading white text-center">
-              <p>What we do</p>
-              <h2><span>Our Produce</span> Is Mainstay For Us</h2>
-              <img src="img/core-img/decor2.png" alt="">
-            </div>
-            <p class="text-white mb-50 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at diam convallis ligula cursus bibendum sed at enim. Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos
-              himenaeos.</p>
-          </div>
-        </div>
-      </div>
-      <!-- Newsletter Form -->
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-6">
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Enter your email">
-            <button type="submit" class="btn famie-btn">Subscribe</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ##### Newsletter Area End ##### -->
-
   <!-- ##### Contact Area Start ##### -->
   <section class="contact-area section-padding-100-0">
     <div class="container">
@@ -327,3 +228,49 @@
   </section>
   <!-- ##### Contact Area End ##### -->
   <%- include('includes/footer') %>
+
+  <script>
+    new Vue({
+    el: '#productsArea',
+    data: {
+        products:[],
+        siteData: null
+    },
+    created () {
+      fetch('api/v1/products/viewAllProducts')
+      .then((resp) => resp.json()) 
+      .then(doc => {
+        this.products = doc
+        console.log(doc)
+               
+      })
+      
+      fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.siteData = doc;
+        });
+      })
+  }
+})
+
+new Vue({
+  el: '#productTitleArea',
+    data: {
+          title:null,
+    },
+    created () {
+      fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.title = doc.smalltext;
+          
+        });
+      })
+    }
+})
+
+
+  </script>

@@ -1,7 +1,8 @@
 
   <%- include('includes/header') %>
   <!-- ##### Hero Area Start ##### -->
-  <div class="hero-area">
+<div >
+  <div class="hero-area" >
     <div class="welcome-slides owl-carousel">
 
       <!-- Single Welcome Slides -->
@@ -12,7 +13,7 @@
               <div class="welcome-content">
                 <h2 data-animation="fadeInUp" data-delay="200ms">The hearth of the farm is the true center of our universe.</h2>
                 <p data-animation="fadeInUp" data-delay="400ms">AHAIFARMS is an indigenous company with a deep understanding of the needs and challenges of the Nigerian farmers.</p>
-                <a href="#" class="btn famie-btn mt-4" data-animation="bounceInUp" data-delay="600ms">Contact Us</a>
+                <a href="/contact" class="btn famie-btn mt-4" data-animation="bounceInUp" data-delay="600ms">Contact Us</a>
               </div>
             </div>
           </div>
@@ -27,7 +28,7 @@
               <div class="welcome-content">
                 <h2 data-animation="fadeInDown" data-delay="200ms">The hearth of the farm is the true center of our universe.</h2>
                 <p data-animation="fadeInDown" data-delay="400ms">AHAIFARMS is an indigenous company with a deep understanding of the needs and challenges of the Nigerian farmers.</p>
-                <a href="#" class="btn famie-btn mt-4" data-animation="bounceInDown" data-delay="600ms">Contact Us</a>
+                <a href="/contact" class="btn famie-btn mt-4" data-animation="bounceInDown" data-delay="600ms">Contact Us</a>
               </div>
             </div>
           </div>
@@ -95,7 +96,7 @@
   <!-- ##### Famie Benefits Area End ##### -->
 
   <!-- ##### About Us Area Start ##### -->
-  <section class="about-us-area">
+  <section class="about-us-area" id="aboutArea">
     <div class="container">
       <div class="row align-items-center">
 
@@ -103,14 +104,13 @@
         <div class="col-12 col-md-8">
           <div class="about-us-content mb-100">
             <!-- Section Heading -->
-            <div class="section-heading">
+            <div class="section-heading" >
               <p>About us</p>
               <h2><span>Let Us</span> Tell You Our Story</h2>
               <img src="img/core-img/decor.png" alt="">
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetu adipiscing elit. Etiam nunc elit, pretium atlanta urna veloci, fermentum malesuda mina. Donec auctor nislec neque sagittis, sit amet dapibus pellentesque donal feugiat. Nulla mollis magna non
-              sanaliquet, volutpat do zutum, ultrices consectetur, ultrices at purus.</p>
-            <a href="#" class="btn famie-btn mt-30">Read More</a>
+            <p>{{about}}</p>
+            <a href="/about" class="btn famie-btn mt-30">Read More</a>
           </div>
         </div>
 
@@ -217,8 +217,8 @@
     </div>
   </section>
   <!-- ##### Services Area End ##### -->
-
-  <!-- ##### Our Products Area Start ##### -->
+<div class="indexArea">
+    <!-- ##### Our Products Area Start ##### -->
   <section class="our-products-area section-padding-100">
     <div class="container">
       <div class="row ">
@@ -232,15 +232,13 @@
         </div>
       </div><% //console.log(products) %>
 
-      <div class="row justify-content-center">
-<% products.forEach((product)=>{ %>
-
+      <div class="row justify-content-center">          
         <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3" v-for="(product, index) in products ">
           <div class="single-product-area mb-50 wow fadeInUp" data-wow-delay="700ms">
             <!-- Product Thumbnail -->
             <div class="product-thumbnail">
-              <img src="uploads/<%-product.image%>" alt="<%product.name%>" class="img-fluid" style="width:270px;height:226px;">
+              <img v-bind:src="product.image" v-bind:alt="product.name" class="img-fluid" style="width:270px;height:226px;">
               <!-- Product Tags -->
               <span class="product-tags bg-danger">Sale</span>
               <!-- Product Meta Data -->
@@ -248,12 +246,11 @@
             </div>
             <!-- Product Description -->
             <div class="product-desc text-center pt-4">
-              <a href="#" class="product-title"><%=product.name%></a>
-              <h6 class="price"><span>&#8358;<%=product.rate%>></span>&#8358; <%=product.discount%></h6>
+              <a href="#" class="product-title">{{product.name}}</a>
+              <h6 class="price"><span>&#8358;{{product.rate}}></span>&#8358; {{product.discount}}</h6>
             </div>
           </div>
         </div>
-     <% }) %>
 
       </div>
 
@@ -266,40 +263,9 @@
       </div>
     </div>
   </section>
-  <!-- ##### Our Products Area End ##### -->
-
-  <!-- ##### Newsletter Area Start ##### -->
-  <section class="newsletter-area section-padding-100 bg-img bg-overlay jarallax" style="background-image: url('img/bg-img/8.jpg');">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-          <div class="newsletter-content">
-            <!-- Section Heading -->
-            <div class="section-heading white text-center">
-              <p>What we do</p>
-              <h2><span>Our Produce</span> Is Mainstay For Us</h2>
-              <img src="img/core-img/decor2.png" alt="">
-            </div>
-            <p class="text-white mb-50 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at diam convallis ligula cursus bibendum sed at enim. Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos
-              himenaeos.</p>
-          </div>
-        </div>
-      </div>
-      <!-- Newsletter Form -->
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-6">
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Enter your email">
-            <button type="submit" class="btn famie-btn">Subscribe</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ##### Newsletter Area End ##### -->
-
+  
   <!-- ##### Farming Practice Area Start ##### -->
-  <section class="farming-practice-area section-padding-100-50">
+  <section class="farming-practice-area section-padding-100-50 ">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -312,7 +278,7 @@
         </div>
       </div>
 
-      <div class="row" id="serviceGuestArea">
+      <div class="row">
 
         
           <!-- Single Farming Practice Area --> 
@@ -340,10 +306,19 @@
         </div>
 
       </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="gotoshop-btn text-center wow fadeInUp" data-wow-delay="900ms">
+            <a href="/farming-practice" class="btn famie-btn">View All Services</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!-- ##### Farming Practice Area End ##### -->
 
+</div>
+  
   <!-- ##### Testimonial Area Start ##### -->
   <section class="testimonial-area bg-img bg-overlay section-padding-100 jarallax" style="background-image: url('img/bg-img/15.jpg');">
     <div class="container">
@@ -405,6 +380,7 @@
       </div>
     </div>
   </section>
+</div>
   <!-- ##### Contact Area End ##### -->
 
   <%- include('includes/footer') %>
@@ -421,15 +397,43 @@ Vue.filter('snippet', (val)=>{
 })  
     // creaee new vvue instance
 new Vue({
-    el: '#serviceGuestArea',
+    el: '.indexArea',
     data: {
-        info:null
+      products:[],
+        info:null,
+        siteData: null
     },
     created () {
+
+      fetch('api/v1/products/viewAllProducts')
+      .then((resp) => resp.json()) 
+      .then(doc => {
+        this.products = [doc[0], doc[1], doc[2]];
+        console.log(this.products)
+      })
+
       fetch('/api/v1/services/viewAllServices')
       .then((resp) => resp.json()) 
-      .then(data => (this.info = data))
+      .then(data => (this.info = [data[0], data[1], data[2]]))
+
   }
+})
+
+new Vue({
+  el: '#aboutArea',
+    data: {
+          about:null,
+    },
+    created () {
+      fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.about = doc.about;
+            // console.log(doc.about)
+        });
+      })
+    }
 })
   </script>
   

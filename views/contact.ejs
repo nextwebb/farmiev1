@@ -25,7 +25,7 @@
   <!-- ##### Breadcrumb Area End ##### -->
 
   <!-- ##### Contact Information Area Start ##### -->
-  <section class="contact-info-area">
+  <section class="contact-info-area" id="contactArea">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-if="siteData">
 
         <!-- Single Information Area -->
         <div class="col-12 col-md-4">
@@ -47,7 +47,7 @@
               <i class="icon_pin_alt"></i>
             </div>
             <h5>Address</h5>
-            <h6>120 Raymond Rd, Canarsie, New York</h6>
+            <h6>{{ siteData.contacts.Address }}</h6>
           </div>
         </div>
 
@@ -58,7 +58,7 @@
               <i class="icon_phone"></i>
             </div>
             <h5>Phone</h5>
-            <h6>+84 223 9000</h6>
+            <h6>{{ siteData.contacts.phone }}</h6>
           </div>
         </div>
 
@@ -69,7 +69,7 @@
               <i class="icon_mail_alt"></i>
             </div>
             <h5>Email</h5>
-            <h6>info.deercreative@gmail.com</h6>
+            <h6>{{ siteData.contacts.email }}</h6>
           </div>
         </div>
 
@@ -131,4 +131,22 @@
   <!-- ##### Contact Area End ##### -->
   <%- include('includes/footer') %>
 
- 
+  <script>
+    // creaee new vvue instance
+  new Vue({
+      el: '#contactArea',
+      data: {
+          siteData:null
+      },
+      created () {
+        fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.siteData = doc;
+            console.log(this.siteData)
+        });
+      })
+    }
+  })
+    </script>

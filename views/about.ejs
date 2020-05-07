@@ -86,15 +86,15 @@
       <div class="row align-items-center">
 
         <!-- About Us Content -->
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-8" id="aboutArea">
           <div class="about-us-content mb-100">
             <!-- Section Heading -->
-            <div class="section-heading">
+            <div class="section-heading" >
               <p>About us</p>
               <h2><span>Let Us</span> Tell You Our Story</h2>
               <img src="img/core-img/decor.png" alt="">
             </div>
-            <p>AHAIFARMS indigenous company with a deep understanding of the needs and challenges of the Nigerian farmers. Through in-depth research and development, we’ve focused on serving the needs of farmers through provision of quality inputs such as high quality seeds, granular and water soluble fertilizers, irrigation systems, cocopeat, seedling trays, mulch film, grow bags, modern and locally adapted green houses and net houses, green house covers, shade nets, insect nets, high quality crop protection products and several other agricultural inputs.</p>
+            <p v-if="siteData"> {{siteData.about}}</p>
           </div>
         </div>
 
@@ -126,3 +126,22 @@
   <!-- ##### Testimonial Area End ##### -->
 
   <%- include('includes/footer') %>
+<script>
+  // creaee new vvue instance
+new Vue({
+    el: '#aboutArea',
+    data: {
+        siteData: null
+    },
+    created () {
+      fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.siteData = doc;
+            console.log(this.siteData)
+        });
+      })
+  }
+})
+  </script>

@@ -41,7 +41,7 @@ exports.login = function(req, res) {
         
              res.cookie("jwt", token, {
                 maxAge:1000 * 60 * 60 * 24,
-                secure: true, // set to true if your using https
+                secure: false, // set to true if your using https
                 httpOnly: true,
               });
             res.render('admin_index')
@@ -74,9 +74,10 @@ exports.mustBeLoggedIn = function(req, res, next) {
 //Check to make sure header is not undefined, if so, return Forbidden (403)
     exports.checkToken = async  (req, res, next) => {  
         const token = req.cookies.jwt || " ";
-        console.log(token)
+        console.log(req.cookies)
         try {
             if (!token) {
+                
               return res.status(401).json('You need to Login')
             }
              await jwt.verify(token, process.env.JWTSECRET);
