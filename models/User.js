@@ -120,10 +120,10 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
         })       
     }
 
-    User.prototype.login = function() {
-        return new Promise((resolve, reject)=>{
+    User.prototype.login =  function() {
+        return new Promise(async(resolve, reject)=>{
            
-            usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
+            await usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
                 if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
                     this.data = attemptedUser
                                         
@@ -146,7 +146,12 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
         })
     }
 
-
+User.getAll = async function(){
+    return new Promise(async(resolve, reject)=>{
+        await usersCollection.find({}).toArray().then(doc => resolve(doc)).catch(err=>reject(err))
+    })
+  
+}
     
 
 module.exports = User

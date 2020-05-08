@@ -32,6 +32,8 @@ apiRouter.get('/v1/products/viewAllProducts', cors(),   productController.viewAl
 
 apiRouter.post("/v1/admin/login", cors(), userController.login)
 
+apiRouter.get("/v1/admin/users/all", cors(corsOptions),  userController.checkToken, userController.getAllUsersApi)
+
 apiRouter.post('/v1/site-profile/update', cors(corsOptions),  userController.checkToken, siteprofileController.updateSitedataApi)
 
 module.exports = apiRouter; 

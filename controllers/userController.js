@@ -131,6 +131,15 @@ exports.redirectToAdmin = function(req, res){
 
 }
 
+exports.getAllUsersApi = function(req, res){
+    User.getAll().then(users=>{
+        res.json(users)
+    }).catch(err=>{
+        res.json(err)
+    })
+}
+
+
 exports.logOut = function(req, res) {
     req.session.destroy(function() {
         res.clearCookie("jwt");
