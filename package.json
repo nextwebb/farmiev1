@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "AHAI - Farm Services &amp; Organic Food Store template",
   "main": "app.js",
+  "engines": {
+    "node": "12.16.3"
+  },
   "scripts": {
     "watch": "nodemon db --ignore frontend-js --ignore public/ & webpack --watch",
     "start": "node db --ignore frontend-js --ignore public/ & webpack --watch",
