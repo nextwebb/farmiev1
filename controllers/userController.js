@@ -41,7 +41,7 @@ exports.login = function(req, res) {
         
              res.cookie("jwt", token, {
                 maxAge:1000 * 60 * 60 * 24,
-                secure: false, // set to true if your using https
+                secure: true, // set to true if your using https
                 httpOnly: true,
               });
             res.render('admin_index')
