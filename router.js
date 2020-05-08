@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const userController = require('./controllers/userController')
 const productController = require('./controllers/productController')
 const servicesController = require('./controllers/servicesController')
+const siteprofileController = require('./controllers/siteprofileController')
 
 
 
@@ -49,6 +49,7 @@ router.post("/admin/deleteSingle/:id", userController.mustBeLoggedIn, productCon
 router.get('/admin/services', userController.mustBeLoggedIn, servicesController.viewAllServices)
 
 router.post("/admin/create-service",userController.mustBeLoggedIn, servicesController.createService )
+
 
 
 

@@ -1,6 +1,7 @@
 
 const User = require('../models/User')
 const Product = require('../models/Product')
+const jwt = require('jsonwebtoken')
 
 
 exports.home = function(req, res) {
@@ -30,14 +31,24 @@ exports.contact = function(req, res) {
 }
 exports.login = function(req, res) {
     let user = new User(req.body)
-    // console.log(user.data)
-    user.login().then((result)=>{
-        req.session.user = {username: user.data.username, _id: user.data._id}
+    user.login().then((token)=>{
+        
+        req.session.user = {
+            username: user.data.username, 
+            _id: user.data._id,
+        }
         req.session.save(function() {
-            console.log(result)
+        
+             res.cookie("jwt", token, {
+                maxAge:1000 * 60 * 60 * 24,
+                secure: false, // set to true if your using https
+                httpOnly: true,
+              });
             res.render('admin_index')
-           
+            console.log(req.cookies)
         })
+
+        
 
     }).catch((e)=>{
         console.log(e)
@@ -59,6 +70,24 @@ exports.mustBeLoggedIn = function(req, res, next) {
           res.redirect('/')
         })
       }
+}
+//Check to make sure header is not undefined, if so, return Forbidden (403)
+    exports.checkToken = async  (req, res, next) => {  
+        const token = req.cookies.jwt || " ";
+        console.log(req.cookies)
+        try {
+            if (!token) {
+                
+              return res.status(401).json('You need to Login')
+            }
+             await jwt.verify(token, process.env.JWTSECRET);
+            req.token = token          
+            next();
+          } catch (err) {
+              console.log(err)
+            return res.status(500).json(err.toString());
+          }
+          
 }
 
 exports.openRegAdminForm = function( req, res){
@@ -104,8 +133,11 @@ exports.redirectToAdmin = function(req, res){
 
 exports.logOut = function(req, res) {
     req.session.destroy(function() {
+        res.clearCookie("jwt");
         res.redirect('/')
         console.log("Logout Successful!")
+
+
       })
 }
 

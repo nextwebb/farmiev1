@@ -63,6 +63,14 @@ exports.viewAllProduct = function(req, res) {
       console.log(err)
     })
 }
+
+exports.viewAllProductApi = function(req, res){
+  Product.veiwAllProducts().then((products)=>{
+    res.json(products)  
+  }).catch((err)=>{
+    console.log(err)
+  })
+}
   
 exports.updateSingleProduct = function(req, res){
   Product.viewSingleProduct(req.params.id).then((product)=>{

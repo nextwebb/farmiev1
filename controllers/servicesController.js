@@ -6,7 +6,6 @@ const upload =  require('../uploadMiddleware').single('uploads')
 
 exports.viewAllServices = function(req, res) {
   Services.veiwAllProducts().then((services)=>{
-    console.log(services)
     res.render("admin_services", {services:services})
   }).catch((err)=>{
     console.log(err)
@@ -32,7 +31,8 @@ exports.createService  = function(req, res){
       
     
         let service = new Services(req.body, fileUpload )
-          service.create().then( async (data)=>{
+          service.create()
+          .then( async (data)=>{
             console.log(data)
               req.flash("success", "Successfully added service.")
              req.session.save(() => res.redirect("/admin/services"))
@@ -50,10 +50,19 @@ exports.createService  = function(req, res){
     }
   })
 }
-exports.viewSingleService = function(req, res) {
-    
+
+exports.viewAllServicesApi = function(req, res) {
+  Services.veiwAllProducts().then((services)=>{
+    //console.log(services)
+    res.json(services)
+  }).catch((err)=>{
+    //console.log(err)
+    res.json(err)
+  })
+ 
 }
-exports.deleteSingleService = function(req, res){
+
+exports.updateService = function(req, res){
 
 }
 
