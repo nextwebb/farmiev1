@@ -10,25 +10,28 @@ const cors = require('cors')
 // Using cookies + jwt i'm prone too to CSRF attacks 
 // Increase CSRF protection by restricting  Origin access
 
-cors({
-  origin: [
-    `${process.env.FRONTURL}`,
-    'http://localhost:4000',
-    'http://localhost:4000/admin',
-  ],
+
+var whitelist = [ 'http://localhost:4000', `${process.env.FRONTENDURL}`,  'http://localhost:4000/admin']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true
-})
+}
 
 
+apiRouter.get('/v1/services/viewAllServices', cors(),  servicesController.viewAllServicesApi)
 
-apiRouter.get('/v1/services/viewAllServices',   servicesController.viewAllServicesApi)
+apiRouter.get('/v1/site-profile/viewAllSitedata', cors(), siteprofileController.viewAllSitedataApi)
 
-apiRouter.get('/v1/site-profile/viewAllSitedata', siteprofileController.viewAllSitedataApi)
+apiRouter.get('/v1/products/viewAllProducts', cors(),   productController.viewAllProductApi)
 
-apiRouter.get('/v1/products/viewAllProducts',   productController.viewAllProductApi)
+apiRouter.post("/v1/admin/login", cors(), userController.login)
 
-apiRouter.post("/v1/admin/login", userController.login)
-
-apiRouter.post('/v1/site-profile/update',  userController.checkToken, siteprofileController.updateSitedataApi)
+apiRouter.post('/v1/site-profile/update', cors(corsOptions),  userController.checkToken, siteprofileController.updateSitedataApi)
 
 module.exports = apiRouter; 
