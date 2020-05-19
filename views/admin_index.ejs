@@ -16,7 +16,14 @@
             <i class="fa fa-bars"></i>
           </button>
 
-         
+           <!-- Topbar Navbar -->
+           <ul class="navbar-nav ml-auto">
+              <div class=" p-3 mb-5 bg-white rounded">
+                  <p id= user class="font-weight-bold">
+                    <% user %>
+                  </p>
+              </div>
+          </ul>
 
          
         </nav>
@@ -212,6 +219,7 @@
                     
                   })
               })
+
 
                 await fetch('/api/v1/site-profile/viewAllSitedata')
               .then((resp) => resp.json()) 

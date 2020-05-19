@@ -31,8 +31,10 @@ exports.contact = function(req, res) {
 }
 exports.login = function(req, res) {
     let user = new User(req.body)
-    user.login().then((token)=>{
-        
+    user.login().then((result)=>{
+        const {token, email} = result; 
+        console.log(token)
+        console.log(email)
         req.session.user = {
             username: user.data.username, 
             _id: user.data._id,
@@ -44,7 +46,7 @@ exports.login = function(req, res) {
                 secure: true, // set to true if your using https
                 httpOnly: true,
               });
-            res.render('admin_index')
+            res.render('admin_index', {user: email})
             console.log(req.cookies)
         })
 

@@ -124,14 +124,17 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
         return new Promise(async(resolve, reject)=>{
            
             await usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
+                console.log(attemptedUser)
                 if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
                     this.data = attemptedUser
                                         
                     jwt.sign({attemptedUser}, process.env.JWTSECRET, { expiresIn: '7d' },(err, token) => {
-                        
+                        let identifier = { 
+                            token: token,
+                            email: this.data.email
+                        }
                         if(err) { console.log(err) }    
-                        //console.log(token);
-                        resolve(token)
+                        resolve(identifier)
                         
                     }); 
                    
