@@ -1,7 +1,6 @@
 const siteprofileCollection = require('../db').db().collection("Siteprofile")
 const ObjectID = require('mongodb').ObjectID
-const sanitizeHTML = require('sanitize-html')
-const sharp = require('sharp');
+const sgMail = require('@sendgrid/mail');
 
 //function contructor
 let Siteprofile = function(data, file){
@@ -96,6 +95,32 @@ Siteprofile.prototype.updateSitedata =  function() {
   })
 }
 
+Siteprofile.contactMessage = async function(emailBody){
+const {} = emailBody;
+  msg = {
+    to:``,
+    from: `${process.env.EMAIL}`,
+    subject: '',
+    text: '',
+    html: ``
+  };
+  await Siteprofile.sendMail(msg)
+}
+
+
+Siteprofile.sendMail = function(msg){
+  return new Promise((resolve, reject) => {
+    sgMail
+    .send(msg)
+    .then((data) => {
+      resolve(data)
+    }).catch((err) => {
+      if (err.response) {
+        reject(err.response.body)
+      }
+    })
+  })
+}
 module.exports = Siteprofile
 
 

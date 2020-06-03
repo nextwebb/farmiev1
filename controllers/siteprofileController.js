@@ -28,3 +28,12 @@ exports.updateSitedataApi = function(req, res){
     })
    
 }
+
+exports.sendMessage = function(req, res){
+    console.log(req.body);
+    // Siteprofile.contactMessage(req.body).then((response) => {
+
+    // }).catch(err => {
+
+    // })
+}
