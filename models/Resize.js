@@ -18,8 +18,7 @@ class Resize {
         .resize(270, 226, {
           fit: sharp.fit.inside,
           withoutEnlargement: true
-        }) //.fill()
-        .max()  
+        })
         .toFile(filepath)
         .then((info) => {
           console.log('success, resized! = '+  this.filename , info)
