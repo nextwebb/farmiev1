@@ -1,6 +1,7 @@
 const siteprofileCollection = require('../db').db().collection("Siteprofile")
 const ObjectID = require('mongodb').ObjectID
 const sgMail = require('@sendgrid/mail');
+const sanitizeHTML = require('sanitize-html');
 
 //function contructor
 let Siteprofile = function(data, file){

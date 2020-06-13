@@ -32,22 +32,26 @@ exports.contact = function(req, res) {
 exports.login = function(req, res) {
     let user = new User(req.body)
     user.login().then((result)=>{
+
         const {token, email} = result; 
+
         console.log(token)
-        console.log(email)
+
         req.session.user = {
             username: user.data.username, 
             _id: user.data._id,
         }
+
         req.session.save(function() {
         
              res.cookie("jwt", token, {
                 maxAge:1000 * 60 * 60 * 24,
-                secure: true, // set to true if your using https
-                httpOnly: true,
+                // secure: true, // to force https 
+               httpOnly: true,  // to disable accessing cookie via client side js
               });
+
+              console.log(req.cookies)
             res.render('admin_index', {user: email})
-            console.log(req.cookies)
         })
 
         
@@ -76,7 +80,7 @@ exports.mustBeLoggedIn = function(req, res, next) {
 //Check to make sure header is not undefined, if so, return Forbidden (403)
     exports.checkToken = async  (req, res, next) => {  
         const token = req.cookies.jwt || " ";
-        console.log(req.cookies)
+      
         try {
             if (!token) {
                 

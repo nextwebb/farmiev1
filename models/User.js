@@ -1,6 +1,5 @@
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const md5 = require('md5')
 const usersCollection = require("../db").db().collection("users")
 const jwt = require('jsonwebtoken');
 
@@ -158,6 +157,3 @@ User.getAll = async function(){
     
 
 module.exports = User
-
-
-//module.exports.token = this.collectToken

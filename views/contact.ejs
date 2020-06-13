@@ -132,6 +132,7 @@
 
   <script>
     // creaee new vvue instance
+    // at this point the DOM has not been created
   new Vue({
       el: '#contactArea',
       data: {
@@ -148,7 +149,7 @@
       })
     }
   })
-
+// at this point the DOM has been mounted
   new Vue({
       el: '#contactNow',
       data: {
