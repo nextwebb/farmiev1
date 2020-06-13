@@ -2,7 +2,6 @@ const ProductsCollection = require('../db').db().collection("Products")
 const ObjectID = require('mongodb').ObjectID
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
-const sharp = require('sharp');
 
 
 
