@@ -1,8 +1,6 @@
 
 const Siteprofile = require('../models/Siteprofile')
-const Resize =  require('../models/Resize')
-const path =    require('path')
-const upload =  require('../uploadMiddleware').single('uploads')
+
 const jwt =  require('jsonwebtoken')
 
 exports.viewAllSitedataApi = function(req, res){
