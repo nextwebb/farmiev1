@@ -36,7 +36,7 @@ apiRouter.get("/v1/admin/users/all", cors(corsOptions),  userController.checkTok
 
 apiRouter.post('/v1/site-profile/update', cors(corsOptions),  userController.checkToken, siteprofileController.updateSitedataApi)
 
-apiRouter.post('/v1/site-profile/sendmessage', cors(), siteprofileController.sendMessage)
+apiRouter.post('/v1/site-profile/sendmessage', cors(corsOptions), siteprofileController.sendMessage)
 
 // apiRouter.post('/v1/user/getUser', cors(corsOptions),  userController.checkToken, userController.get )
 

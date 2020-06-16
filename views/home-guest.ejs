@@ -345,20 +345,23 @@
               <img src="img/core-img/decor.png" alt="">
             </div>
             <!-- Contact Form Area -->
-            <div class="contact-form-area">
-              <form action="index.html" method="post">
+            <div class="contact-form-area" >
+              <form id="contact-form-area" @submit.prevent="sendMessage">
                 <div class="row">
                   <div class="col-lg-6">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name">
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" v-model:value="name" required>
                   </div>
                   <div class="col-lg-6">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email">
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" v-model:value="email" required>
                   </div>
                   <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Your Subject">
+                    <input type="number" class="form-control" name="phone" placeholder="Your Phone Number" v-model:value="phone" required>
                   </div>
                   <div class="col-12">
-                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message"></textarea>
+                    <input type="text" class="form-control" name="subject" placeholder="Your Subject" v-model:value="subject" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message"  v-model:value="message" required></textarea>
                   </div>
                   <div class="col-12">
                     <button type="submit" class="btn famie-btn">Send Message</button>
@@ -431,6 +434,48 @@ new Vue({
             // console.log(doc.about)
         });
       })
+    }
+})
+
+new Vue({
+  el: '#contact-form-area',
+    data: {
+          name:null,
+          email:null,
+          phone: null,
+          subject: null,
+          message:null,
+          feedbackSucc: null,
+          feedbackErr: null
+    },
+    methods: {
+     async sendMessage() {
+      const messageToSend = {
+        name : this.name,
+        email: this.email,
+        phone: this.phone,
+        subject: this.subject,
+        message: this.message
+      }
+
+      await fetch('api/v1/site-profile/sendmessage', 
+      {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+          },
+          credentials: 'include',
+          body: JSON.stringify(messageToSend)
+      }).then((success) => {
+        this.feedbackSucc = "success"
+        console.log(this.feedbackSucc)
+      }).catch((err)=>{
+        this.feedbackErr = err
+      })
+      
+
+     }
     }
 })
   </script>
