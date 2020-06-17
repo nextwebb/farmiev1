@@ -246,7 +246,9 @@
             <div class="product-desc text-center pt-4">
               <a href="#" class="product-title">{{product.name}}</a>
               <h6 class="price"><span>&#8358;{{product.rate}}></span>&#8358; {{product.discount}}</h6>
+               <span > <a href=" https://wa.me/08037122949?text=I'm%20interested%20in%20buying%20some%20products%20">  <img class="checkout" src="https://img.icons8.com/color/48/000000/buy.png"/>  Order Now </a> </span>
             </div>
+           
           </div>
         </div>
 
@@ -484,6 +486,11 @@ new Vue({
           body: JSON.stringify(messageToSend)
       }).then(() => {
         this.feedbackSucc = true
+        this.name=null,
+        this.email=null,
+        this.phone= null,
+        this.subject= null,
+        this.message=null
       }).catch((err)=>{
         this.feedbackErr = true
       })

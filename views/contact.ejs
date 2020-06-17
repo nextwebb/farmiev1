@@ -225,6 +225,12 @@
           body: JSON.stringify(messageToSend)
       }).then(() => {
         this.feedbackSucc = true
+        this.feedbackSucc = true
+        this.name=null,
+        this.email=null,
+        this.phone= null,
+        this.subject= null,
+        this.message=null
       }).catch((err)=>{
         this.feedbackErr = true
       })

@@ -40,7 +40,23 @@
             </button>
           </div>
 
+          
+
           <div v-if="siteProfile">
+
+            <div v-if="feedbackErr" class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Email sent!</strong> AHAIFARMS will contact you shortly.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+  
+            <div  v-if="feedbackSucc" class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Try Again later!</strong> You should check in on some of those fields below.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             
             <div class="row">
 
@@ -208,6 +224,8 @@
               data: {
                 siteProfile: null,
                 services: [], 
+                feedbackSucc: null,
+                feedbackErr: null
               },
             async created () {
                await fetch('/api/v1/services/viewAllServices')
@@ -258,8 +276,10 @@
                         }).then((response)=>{
                           return response.json();
                         }).then(function(feedback) {
-                          console.log(feedback)
-                        }).catch(err => console.log(err) )
+                          // this.feedbackSucc = true
+                        }).catch(err => {
+                          // this.feedbackErr = true
+                        } )
                       }
               }
             })

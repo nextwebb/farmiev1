@@ -30,13 +30,13 @@ exports.updateSitedataApi = function(req, res){
 }
 
 exports.sendMessage = function(req, res){
-    console.log(req.body);
     Siteprofile.contactMessage(req.body).then((response) => {
         res.status(200).json({
             status: true,
             data:response
           });
     }).catch(err => {
+        console.log(err)
     //          // bad request
     res.status(400).json({
         status: false,
