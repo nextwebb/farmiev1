@@ -3,6 +3,7 @@ const ObjectID = require('mongodb').ObjectID
 const sgMail = require('@sendgrid/mail');
 const sanitizeHTML = require('sanitize-html');
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //function contructor
 let Siteprofile = function(data, file){
     this.data = data
@@ -115,8 +116,10 @@ Siteprofile.sendMail = function(msg){
     .send(msg)
     .then((data) => {
       resolve(data)
+      console.log(data)
     }).catch((err) => {
       if (err.response) {
+       // console.log(err.response)
         reject(err.response.body)
       }
     })
