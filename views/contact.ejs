@@ -94,20 +94,38 @@
               <img src="img/core-img/decor.png" alt="">
             </div>
             <!-- Contact Form Area -->
-            <div class="contact-form-area" id="contactNow">
-              <form @submit.prevent="sendMail">
+            <div class="contact-form-area" >
+              <form id="contact-form-area" @submit.prevent="sendMessage">
+                <div v-if="feedbackErr" class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Email sent!</strong> AHAIFARMS will contact you shortly.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div  v-if="feedbackSucc" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Try Again later!</strong> You should check in on some of those fields below.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+
                 <div class="row">
                   <div class="col-lg-6">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name" v-model="name" required>
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" v-model:value="name" required>
                   </div>
                   <div class="col-lg-6">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" v-model="email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" v-model:value="email" required>
                   </div>
                   <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Your Subject" v-model="subject" required>
+                    <input type="number" class="form-control" name="phone" placeholder="Your Phone Number" v-model:value="phone" required>
                   </div>
                   <div class="col-12">
-                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message" v-model="message" required></textarea>
+                    <input type="text" class="form-control" name="subject" placeholder="Your Subject" v-model:value="subject" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message"  v-model:value="message" required></textarea>
                   </div>
                   <div class="col-12">
                     <button type="submit" class="btn famie-btn">Send Message</button>
@@ -174,4 +192,45 @@
 }).then((resp) => console.log(resp));
     }
   })
+
+  new Vue({
+  el: '#contact-form-area',
+    data: {
+          name:null,
+          email:null,
+          phone: null,
+          subject: null,
+          message:null,
+          feedbackSucc: null,
+          feedbackErr: null
+    },
+    methods: {
+     async sendMessage() {
+      const messageToSend = {
+        name : this.name,
+        email: this.email,
+        phone: this.phone,
+        subject: this.subject,
+        message: this.message
+      }
+
+      await fetch('api/v1/site-profile/sendmessage', 
+      {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+          },
+          credentials: 'include',
+          body: JSON.stringify(messageToSend)
+      }).then(() => {
+        this.feedbackSucc = true
+      }).catch((err)=>{
+        this.feedbackErr = true
+      })
+      
+
+     }
+    }
+})
     </script>

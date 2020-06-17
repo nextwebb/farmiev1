@@ -97,13 +97,13 @@ Siteprofile.prototype.updateSitedata =  function() {
 }
 
 Siteprofile.contactMessage = async function(emailBody){
-const {} = emailBody;
+const {name, email, phone, subject, message} = emailBody;
   msg = {
-    to:``,
-    from: `${process.env.EMAIL}`,
-    subject: '',
-    text: '',
-    html: ``
+    to:` ${process.env.EMAIL}`,
+    from:  email,
+    subject: subject,
+    text: message,
+    // html: ``
   };
   await Siteprofile.sendMail(msg)
 }
