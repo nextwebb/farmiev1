@@ -347,6 +347,21 @@
             <!-- Contact Form Area -->
             <div class="contact-form-area" >
               <form id="contact-form-area" @submit.prevent="sendMessage">
+                <div v-if="feedbackErr" class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Email sent!</strong> AHAIFARMS will contact you shortly.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div  v-if="feedbackSucc" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Try Again later!</strong> You should check in on some of those fields below.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+
                 <div class="row">
                   <div class="col-lg-6">
                     <input type="text" class="form-control" name="name" placeholder="Your Name" v-model:value="name" required>
@@ -467,11 +482,10 @@ new Vue({
           },
           credentials: 'include',
           body: JSON.stringify(messageToSend)
-      }).then((success) => {
-        this.feedbackSucc = "success"
-        console.log(this.feedbackSucc)
+      }).then(() => {
+        this.feedbackSucc = true
       }).catch((err)=>{
-        this.feedbackErr = err
+        this.feedbackErr = true
       })
       
 
