@@ -25,7 +25,7 @@
   <!-- ##### Breadcrumb Area End ##### -->
 
   <!-- ##### Contact Information Area Start ##### -->
-  <section class="contact-info-area">
+  <section class="contact-info-area" id="contactArea">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-if="siteData">
 
         <!-- Single Information Area -->
         <div class="col-12 col-md-4">
@@ -47,7 +47,7 @@
               <i class="icon_pin_alt"></i>
             </div>
             <h5>Address</h5>
-            <h6>120 Raymond Rd, Canarsie, New York</h6>
+            <h6>{{ siteData.contacts.Address }}</h6>
           </div>
         </div>
 
@@ -58,7 +58,7 @@
               <i class="icon_phone"></i>
             </div>
             <h5>Phone</h5>
-            <h6>+84 223 9000</h6>
+            <h6><a v-bind:href=`mailto:${siteData.contacts.phone}` >{{ siteData.contacts.phone }}</a</h6>
           </div>
         </div>
 
@@ -69,7 +69,7 @@
               <i class="icon_mail_alt"></i>
             </div>
             <h5>Email</h5>
-            <h6>info.deercreative@gmail.com</h6>
+            <h6><a v-bind:href=`mailto:${siteData.contacts.email}` >{{ siteData.contacts.email }}</a></h6>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
   <!-- ##### Contact Information Area End ##### -->
 
   <!-- ##### Contact Area Start ##### -->
-  <section class="contact-area section-padding-100-0">
+  <section class="contact-area section-padding-100-0" >
     <div class="container">
       <div class="row justify-content-between">
 
@@ -94,20 +94,38 @@
               <img src="img/core-img/decor.png" alt="">
             </div>
             <!-- Contact Form Area -->
-            <div class="contact-form-area">
-              <form action="#" method="post">
+            <div class="contact-form-area" >
+              <form id="contact-form-area" @submit.prevent="sendMessage">
+                <div v-if="feedbackErr" class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Email sent!</strong> AHAIFARMS will contact you shortly.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div  v-if="feedbackSucc" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Try Again later!</strong> You should check in on some of those fields below.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+
                 <div class="row">
                   <div class="col-lg-6">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name">
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" v-model:value="name" required>
                   </div>
                   <div class="col-lg-6">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email">
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" v-model:value="email" required>
                   </div>
                   <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Your Subject">
+                    <input type="number" class="form-control" name="phone" placeholder="Your Phone Number" v-model:value="phone" required>
                   </div>
                   <div class="col-12">
-                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message"></textarea>
+                    <input type="text" class="form-control" name="subject" placeholder="Your Subject" v-model:value="subject" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Your Message"  v-model:value="message" required></textarea>
                   </div>
                   <div class="col-12">
                     <button type="submit" class="btn famie-btn">Send Message</button>
@@ -121,8 +139,7 @@
         <!-- Contact Maps -->
         <div class="col-lg-6">
           <div class="contact-maps mb-100">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28313.28917392649!2d-88.2740948914384!3d41.76219337461615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880efa1199df6109%3A0x8a1293b2ae8e0497!2sE+New+York+St%2C+Aurora%2C+IL%2C+USA!5e0!3m2!1sen!2sbd!4v1542893000723"
-              allowfullscreen></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.117866641272!2d3.332553214285485!3d6.632280495204123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b915e390ea701%3A0x39401893e59a8e6c!2sLSDPC%20Medium%20Housing%20Estate%2C%20Phase%203%2C%20Ogba.!5e0!3m2!1sen!2sng!4v1571405891414!5m2!1sen!2sng" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
           </div>
         </div>
       </div>
@@ -131,4 +148,95 @@
   <!-- ##### Contact Area End ##### -->
   <%- include('includes/footer') %>
 
- 
+  <script>
+    // creaee new vvue instance
+    // at this point the DOM has not been created
+  new Vue({
+      el: '#contactArea',
+      data: {
+          siteData:null
+      },
+      created () {
+        fetch('api/v1/site-profile/viewAllSitedata')
+      .then((resp) => resp.json()) 
+      .then(data => {
+        data.forEach(doc => {
+            this.siteData = doc;
+            console.log(this.siteData)
+        });
+      })
+    }
+  })
+// at this point the DOM has been mounted
+  new Vue({
+      el: '#contactNow',
+      data: {
+        name:null,
+        email:null,
+        subject:null,
+        message:null,
+      },
+      mounted () {
+        fetch('api/v1/site-profile/sendmessage', 
+        {  
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify({
+          name: this.name,
+          email: this.email,
+          subject: this.subject,
+          message: this.message
+  })
+}).then((resp) => console.log(resp));
+    }
+  })
+
+  new Vue({
+  el: '#contact-form-area',
+    data: {
+          name:null,
+          email:null,
+          phone: null,
+          subject: null,
+          message:null,
+          feedbackSucc: null,
+          feedbackErr: null
+    },
+    methods: {
+     async sendMessage() {
+      const messageToSend = {
+        name : this.name,
+        email: this.email,
+        phone: this.phone,
+        subject: this.subject,
+        message: this.message
+      }
+
+      await fetch('api/v1/site-profile/sendmessage', 
+      {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+          },
+          credentials: 'include',
+          body: JSON.stringify(messageToSend)
+      }).then(() => {
+        this.feedbackSucc = true
+        this.feedbackSucc = true
+        this.name=null,
+        this.email=null,
+        this.phone= null,
+        this.subject= null,
+        this.message=null
+      }).catch((err)=>{
+        this.feedbackErr = true
+      })
+      
+
+     }
+    }
+})
+    </script>

@@ -1,9 +1,11 @@
+import axios from 'axios'
 export default class Services {
 
     constructor() {
         this.addService = document.querySelector(".addService")
-        this.serviceBox = document.querySelector(".addServiceBox")
+        this.serviceBox = document.querySelector(".allServiceBox")
         this.addServiceForm = document.querySelector(".addServiceForm")
+       
   
         this.events()
   
@@ -23,6 +25,7 @@ export default class Services {
       }  else{
           alert("error")
       }
+     
    
   }
     // Methods
@@ -34,7 +37,8 @@ export default class Services {
     toggleServiceForm(){
         this.addserviceForm.classList.toggle("d-none")
     }
-  
+
+   
     
   
   }

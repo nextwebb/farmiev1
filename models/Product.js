@@ -2,7 +2,6 @@ const ProductsCollection = require('../db').db().collection("Products")
 const ObjectID = require('mongodb').ObjectID
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
-const sharp = require('sharp');
 
 
 
@@ -78,7 +77,7 @@ Product.prototype.create = function() {
       ProductsCollection.insertOne(this.data).then((info) => {
         resolve(info.ops[0]._id)
       }).catch(() => {
-        console.log("THeres were some errors")
+        console.log("Theres were some errors")
         this.errors.push("Please try again later.")
         reject(this.errors)
         
@@ -93,15 +92,7 @@ Product.veiwAllProducts = function() {
   return new Promise(async (resolve, reject) =>{
     try {
       let products = await ProductsCollection.find({}).toArray()
-           // clean up each product array
-          //  products = products.map((product)=>{
-          //     product.location =undefined
-          //     product.image = undefined
-              
-          //   return product
-            
-          //  })
-
+           
         resolve(products)
 
     } catch (error) {
