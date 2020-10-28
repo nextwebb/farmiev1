@@ -1,7 +1,11 @@
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const md5 = require('md5')
 const usersCollection = require("../db").db().collection("users")
+const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 let User = function(data) {
    this.data = data
@@ -111,20 +115,54 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
             let salt = bcrypt.genSaltSync(10)
             this.data.password = bcrypt.hashSync(this.data.password, salt)
             await usersCollection.insertOne(this.data)
-                resolve()
+            User.sendMail({
+                to: `${this.data.email}`,
+                from: `${process.env.EMAIL}`,
+                subject: 'New Admin User registration',
+                text: 'This user has admin privilegdes',
+                html: `<strong> Hi 😀 ${this.data.fname} we've received your registration; Here's your username: <h1> ${this.data.username}</h1>  </strong>`
+              });
+              resolve(this.data);
             } else{
                reject(this.errors)
             }
         })       
     }
 
-    User.prototype.login = function() {
-        return new Promise((resolve, reject)=>{
+    // static sendMAIL method
+User.sendMail = function (msg) {
+    sgMail
+      .send(msg)
+      .then((data) => {
+        console.log('Registered successfully!');
+      }, (error) => {
+        console.error(error);
+  
+        if (error.response) {
+          console.error(error.response.body);
+        }
+      });
+  };
+
+
+    User.prototype.login =  function() {
+        return new Promise(async(resolve, reject)=>{
            
-            usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
+            await usersCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
+                console.log(attemptedUser)
                 if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
                     this.data = attemptedUser
-                    resolve("Congrats!")
+                                        
+                    jwt.sign({attemptedUser}, process.env.JWTSECRET, { expiresIn: '7d' },(err, token) => {
+                        let identifier = { 
+                            token: token,
+                            email: this.data.email
+                        }
+                        if(err) { console.log(err) }    
+                        resolve(identifier)
+                        
+                    }); 
+                   
                   } else {
                     reject("Invalid username / password.")
                   }
@@ -135,4 +173,13 @@ if (this.data.fname.length > 2 && this.data.fname.length && this.data.lname.leng
 
         })
     }
+
+User.getAll = async function(){
+    return new Promise(async(resolve, reject)=>{
+        await usersCollection.find({}).toArray().then(doc => resolve(doc)).catch(err=>reject(err))
+    })
+  
+}
+    
+
 module.exports = User
