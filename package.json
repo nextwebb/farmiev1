@@ -42,7 +42,7 @@
     "md5": "^2.2.1",
     "mongodb": "^3.5.6",
     "multer": "^1.4.2",
-    "nodemon": "^2.0.3",
+    "nodemon": "^2.0.17",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.16.1",
     "sanitize-html": "^2.0.0",
