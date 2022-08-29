@@ -45,7 +45,7 @@
     "nodemon": "^2.0.3",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.16.1",
-    "sanitize-html": "^2.0.0",
+    "sanitize-html": "^2.7.1",
     "sharp": "^0.28.0",
     "socket.io": "^2.2.0",
     "uuid": "^3.4.0",
